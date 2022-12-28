@@ -1,0 +1,37 @@
+
+.taxopost .header{
+    margin: 1em 0;
+}
+
+.taxopost .header h3{
+    margin: 0 0 0 .5em;
+}
+
+.taxopost .listing{
+    list-style: none;
+    margin: 0;
+}
+
+.taxopost .panelist{
+    margin: .75em 0;
+}
+.taxopost .panelist h5{
+    margin: 0 auto 0 0;
+}
+
+.taxopost .panelist i{
+    margin: 0 0 0px 10px;
+    font-size: 1.5em;
+}
+
+.taxopost .section .listing,
+.taxopost .section .la-minus-circle,
+.taxopost .section.active .la-plus-circle {
+    display: none;
+}
+
+.taxopost .section.active .listing,
+.taxopost .section .la-plus-circle,
+.taxopost .section.active .la-minus-circle {
+    display: block;
+}

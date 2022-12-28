@@ -1,0 +1,33 @@
+
+/*  ADMIN PAGE */
+#page-header, .rozard-page.left-sidebar, .rozard-page.right-sidebar{
+    width: 100%;
+    display: grid;
+    align-items: baseline;
+}
+
+#page-header, #page-footer{
+    height: 60px;
+}
+
+#page-content {
+    min-height: 50vh;
+}
+
+#page-header{
+    margin-bottom: 2em;
+    grid-template-columns: 30vw auto;
+}
+
+#page-footer{
+    margin-top: 2em;
+}
+
+.rozard-page.left-sidebar{
+   grid-template-columns: 300px auto;
+   grid-gap: 2em;
+}
+
+.rozard-page.right-sidebar{
+    grid-template-columns: auto 300px;
+}

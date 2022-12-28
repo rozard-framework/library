@@ -1,0 +1,39 @@
+
+
+li.list{
+    list-style: none;
+    list-style-type: none !important;
+}
+
+li.list h2,
+li.list p{
+    margin-bottom: 0;
+}
+
+.list-menu{
+    clear: both;
+    overflow: hidden;
+}
+
+.list-menu.flex-a{ 
+    flex-flow: wrap;
+    margin-left: 0;
+}
+
+.side-alpha {
+    width: fit-content;
+    margin: 1.5em 2em;
+    border: 1px solid #ddd;
+    margin-left: 0 !important;
+}
+
+.side-alpha h2{
+    font-size: 1.25em;
+    padding: 5px 15px;
+    text-transform: uppercase;
+}
+
+.side-alpha p{
+   border-left: 1px solid #ddd;
+   padding: 10px 20px;
+}

@@ -1,0 +1,22 @@
+
+
+.heading.simplify .avatar,
+.heading.simplify .user-pic{
+    width: 3em;
+    height: 3em;
+}
+
+.heading.simplify .meta{
+    margin-left: 2em;
+}
+
+.heading.simplify .page{
+    text-transform: uppercase;
+    margin-bottom: 0.05em;
+}
+
+.heading.simplify .name{
+    font-weight: 400;
+    font-size: 1.15em;
+    margin: 0;
+}

@@ -1,0 +1,276 @@
+
+
+:root {
+    --single-side : 20%;
+    --single-content : calc( 100% - 20% );
+    --dual-side: 18vw;
+    --dual-content: calc( 100% - 36vw );
+}
+
+
+/* SPECTRE NORMALIZATION */
+*, ::after, ::before {
+    box-sizing: unset;
+}
+
+.theme-id-container{
+    box-sizing: unset;
+}
+
+html{
+    scroll-behavior: smooth;
+    font-size: 13px;
+    line-height: 1.4em;
+}
+
+body{
+    background: #f0f0f1;
+    color: #3c434a;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    font-size: 13px;
+    line-height: 1.4em;
+    min-width: 600px;
+    overflow-x: unset;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+#adminmenu ul{
+    margin: 0;
+}
+
+.modal.active{
+    z-index: 1000000;
+}
+
+.modal.modal-full .modal-container {
+    max-width: 95vw;
+    max-height: 95vh;
+
+}
+
+.tile-icon-box {
+    align-content: space-around;
+    align-items: center;
+    background: #5755d9;
+    border-radius: 0.3rem;
+    color: #fff;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    -ms-flex-line-pack: distribute;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    height: 2rem;
+    width: 2rem;
+}
+
+a {
+    color: #2271b1;
+}
+
+.column, [class~=col-]{
+    padding: 0;
+}
+
+.themes-php{
+    overflow-y: unset;
+}
+
+
+/* DISPLAY */
+
+body.no-scroll{
+    height: 100vh;
+    overflow: hidden;
+}
+
+.flex-c{
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-a{
+    display: flex !important;
+    align-items: center;
+}
+
+.shadow{
+    border: 0;
+    box-shadow: 0 0.25rem 1rem rgb(48 55 66 / 15%);
+    height: 100%;
+}
+
+.right-sidebar .foot-sidebar{
+    width: var(--single-side);
+    float: right;
+}
+
+.right-sidebar #wpwrap{
+    width: var( --single-content);
+    float: left;
+}
+
+.left-sidebar .head-sidebar{
+    width: var(--single-side);
+    float: left;
+}
+
+.left-sidebar #wpbody{
+    width: var( --single-content);
+    float: right;
+}
+
+.dual-sidebar .head-sidebar{
+    width: var(--dual-side);
+    float: left;
+}
+
+.dual-sidebar #wpbody{
+    width: auto;
+    float: right;
+}
+
+.dual-sidebar #wpwrap{
+    width: calc( 100% - var( --dual-side ) );
+    float: left;
+}
+
+.dual-sidebar .foot-sidebar{
+    width: var(--dual-side);
+    float: right;
+}
+
+footer{
+    clear: both;
+}
+
+#wpfooter{
+    position: relative;
+}
+
+/* CONTEXTUAL */
+#screen-meta-links,
+.index-php #screen-meta-links{
+    right: 0;
+    margin: 0;
+}
+
+
+/* MAIN */
+#wpcontent{
+    padding-left: 0;
+}
+
+#wpcontent .wrap{
+    margin: 10px 20px 0 2px;
+    padding-left: 20px;
+    clear: both;
+}
+
+/* ACTION */
+.hide{
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.super-hide{
+    display: none !important;
+}
+
+.active{
+    position: relative;
+    z-index: 100;
+    opacity: 1;
+}
+
+/* ANIMATION */
+@keyframes fade_in_up {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+
+@keyframes fade_in_down {
+    from {
+        transform: translateY(0px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(30px);
+        opacity: 1;
+    }
+}
+
+@keyframes fade_out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+/* ADMIN THEMES */
+#user-theme .card{
+    border-radius: 10px;
+    margin: 0 1em 0 1em;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+/* BUTTON */
+.rozard .button figure {
+    margin: 0;
+}
+
+
+
+/* UPGRADE PAGE */
+
+.complement-upgrade .wrap p a{
+    display: none;
+}
+
+
+/* RESYNC */
+.button.resync{
+    float: right;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: #1d2327;
+    color: #fff;
+    height: 3em;
+    width: 3em;
+}
+
+.button.resync i{
+    font-size: 1.5em;
+}
+
+
+/* QUERY TEMPLATE */
+
+.query-wrap{
+    margin: 10px 20px 0 2px;
+    padding-left: 20px;
+    clear: both;
+}
+
+.query-template #wpwrap a.button.resync,
+.query-template #wpbody-content .wrap{
+    display: none !important;
+}

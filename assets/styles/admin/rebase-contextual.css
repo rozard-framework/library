@@ -1,0 +1,218 @@
+
+/* HELPER BOX */
+#menu-settings,
+.contextual-help-tabs-wrap::-webkit-scrollbar,
+#contextual-help-wrap,
+#screen-meta-links{
+    display: none;
+}
+
+.help-tab-content .content,
+#tab-panel-main-screen-options #no-option,
+#tab-link-close-contextual i,
+#context-action,
+#contextual-header i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#contextual-header,
+.contextual-help-tabs,
+.contextual-help-tabs li,
+.contextual-help-tabs .active{
+    display: flex;
+    align-items: center;
+}
+
+.contextual-help-tabs,
+#contextual-header i,
+#tab-link-close-contextual i{
+    height: 45px;
+}
+
+#context-action{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 43px;
+    width: 43px;
+    background-color: #1d2327;
+    color: #fff;
+    z-index: 100;
+}
+
+#tab-link-close-contextual i,
+#context-action i{
+    font-size: 2em;
+}
+
+#contextual-help-wrap.show{
+    display: block;
+    position: fixed;
+    z-index: 101;
+    background: #ffff;
+}
+
+#contextual-help-wrap .help-tab-content.active{
+    display: block !important;
+}
+
+#tab-link-close-contextual{
+    margin-left: auto;
+}
+
+#tab-link-close-contextual i{
+    width: 50px;
+}
+
+
+/* HEADER */
+#contextual-header{
+    background-color: #135e96;   
+    color: #fff;
+    padding:0 1.5em 0 1em ;
+    width: 130px;
+}
+
+#contextual-header h1{
+    font-size: .9em;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+#contextual-header i{
+    font-size: 1.75em;
+    margin-right: 0.35em;
+}
+
+
+/* DEFAULT CONTEXTUAL PAGE */
+.contextual-help-columns{
+    position: relative;
+    outline: none;
+}
+
+.contextual-help-tabs{
+    flex-direction: row-reverse;
+    width: var(--content );
+    border-bottom: 1px solid #ddd;
+}
+
+.contextual-help-tabs ul {
+    display: flex;
+    width: 85%;
+    margin: auto;
+}
+
+.contextual-help-tabs a{
+    font-weight: 600;
+    padding: 0 1em;
+    margin: unset;
+    border: 0;
+}
+
+.contextual-help-tabs li,
+.contextual-help-tabs .active{
+    padding: unset;
+    margin: unset;
+}
+
+.contextual-help-tabs .active {
+    border-left: 0px solid #72aee6;
+    background: transparent;
+    box-shadow: unset;
+}
+
+.help-tab-content,
+.contextual-help-tabs-wrap{
+    width: 100%;
+    min-height: calc( 100vh - 50px );
+}
+
+.help-tab-content.active{
+    background-color: #fff;
+}
+
+.contextual-help-tabs-wrap{
+    padding: 0;
+    overflow-y: scroll;
+    background: #f9f9f9;
+    height: 100vh;
+    padding-bottom: 15vh;
+}
+
+.help-tab-content ul .tab-item{
+    list-style: none;
+    margin-left: 0;
+}
+
+.help-tab-content .content{
+    min-height: calc( 100vh - 50px );
+    width: 90%;
+    margin: auto;
+}
+
+.help-tab-content .listing{
+    margin-top: 5em;
+    margin-bottom: 5em;
+}
+
+.help-tab-content .listing,
+.help-tab-content #animator-manage{
+    width: 50%;
+}
+
+.help-tab-content #animator-options,
+.help-tab-content #animator-setting,
+.help-tab-content #animator-wizard{
+    width: 50%;
+}
+
+.help-tab-content .listing h4,
+.help-tab-content .listing h2{
+    font-weight: 600;
+}
+
+.help-tab-content .listing h4{
+    margin-top: 2em;
+}
+.help-tab-content .listing.setting,
+.help-tab-content .listing.manage,
+.help-tab-content .listing.wizard {
+    margin-left: 5em;
+}
+
+.help-tab-content .listing.wizard h2,
+.help-tab-content .listing.wizard p{
+    text-align: right;
+}
+
+.contextual-custom-sidebar,
+.contextual-help-sidebar{
+    width: 20vw;
+    margin: 2.5em 0;
+    padding: 0 3em;
+    float: right;
+    overflow: auto;
+}
+
+.help-tab-content .listing.manage{
+    overflow-x: scroll;
+}
+
+.help-tab-content .listing.manage::-webkit-scrollbar {
+    display: none;
+  }
+  
+
+/* SCREEN OPTION */
+#tab-panel-main-screen-options #no-option{
+    width: 100%;
+    margin: auto;
+}
+
+#tab-panel-main-screen-options .animator{
+    width: 40%;
+}

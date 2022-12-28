@@ -1,0 +1,31 @@
+#ROZARD
+# https://wordpress.stackexchange.com/questions/37144/how-to-protect-uploads-if-user-is-not-logged-in/37743#37743
+# https://wordpress.stackexchange.com/questions/249280/restrict-directory-listing-to-only-logged-in-users
+# https://gist.github.com/hakre/1552239
+# https://stackoverflow.com/questions/54228127/storing-images-outside-public-html
+# https://stackoverflow.com/questions/40192856/protect-a-server-folder-from-non-logged-in-wordpress-users
+#
+# versi 1
+# RewriteCond %{REQUEST_FILENAME} -s
+# RewriteRule ^wp-admin/organel/(.*)$ wp-admin/rozard/kernel/driver/dirguard.php?file=$1 [QSA,L]
+#
+# versi 2
+# RewriteCond %{REQUEST_URI} /organel/(.*)
+# RewriteRule (.*)$ wp-admin/rozard/kernel/driver/dirguard.php?file=$1 [QSA,L]
+#
+# versi 3
+# RewriteCond %{REQUEST_FILENAME} -s
+# RewriteRule ^wp-admin/organel/(.*)$ wp-admin/rozard/kernel/driver/dirguard.php?file=%{REQUEST_FILENAME} [QSA,L]
+#
+# versi 4
+
+RewriteCond %{REQUEST_URI} /organel/(.*) [OR]
+RewriteCond %{REQUEST_URI} /library/(.*)
+RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in.*$ [NC]
+RewriteRule .* - [R=404,L]
+
+RewriteCond %{REQUEST_FILENAME} -s
+RewriteRule ^wp-admin/organel/(.*) [R=404,L]
+
+#rewrite datum operation
+RewriteRule ^datum/(.+) /wp-admin/rozard/datums/$1 [L,QSA]

@@ -1,0 +1,112 @@
+/* FORM */
+form.rozard{
+    display: block;
+}
+
+.rozard-form.sidenav{
+    display: grid;
+    grid-template-columns: 200px auto;
+}
+
+.tab li.tab-item{
+    margin-bottom: 0;
+} 
+
+.rozard-form.sidenav .rozard-menu{
+    padding-top: 0;
+    margin-block-start: 0em;
+}
+
+.rozard-tab.head-tab .rozard-menu{
+    display: inline-flex;
+    margin-bottom: 3em ;
+}
+
+.rozard-tab.head-tab .tab-item {
+    margin-right: 2em;
+}
+
+.step-tab {
+    -ms-flex: 1 0 0;
+    flex: 1 0 0;
+    text-align: center;
+}
+
+.step-tab a{
+    border-bottom: 0.1rem solid transparent;
+    color: inherit;
+    display: block;
+    margin: 0 0.4rem 0 0;
+    padding: 0.4rem 0.2rem 0.3rem 0.2rem;
+    text-decoration: none;
+} 
+
+.rozard-form .section{
+    position: relative;
+}
+
+.tab-content,
+.step-content{
+    position: fixed;
+    z-index: -1;
+    opacity: 0;
+}
+
+.tab-content.active,
+.step-content.active{
+    position: relative;
+    z-index: 2;
+    opacity: 1;
+    animation: tab_open;
+    animation-duration: 300ms;
+}
+
+
+@keyframes tab_open {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+.rozard-form.normal .section{
+    margin: 3em 0;
+}
+
+.rozard-form.normal .section .title{
+    margin-bottom: 2em;
+}
+
+
+
+
+.tab-actions{
+    background: #fff;
+    margin: 1em 0;
+}
+
+.tab-action {
+    width: 100%;
+    justify-content: center;
+} 
+
+.tab-action p{
+    text-transform: capitalize;
+    margin: 0;
+}
+
+.tab-content{
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.tab-content.active{
+    opacity: 1;
+    position: relative;
+    z-index: 10;
+}

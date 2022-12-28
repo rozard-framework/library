@@ -1,0 +1,8 @@
+.block .left-tabs .heading .tab-block,
+.block .right-tabs .heading .tab-block,
+.form .left-tabs .heading .tab-block,
+.form .right-tabs .heading .tab-block{
+    display: block;
+    padding: 0em 3em 0em 0;
+    
+}

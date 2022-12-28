@@ -1,0 +1,21 @@
+
+.button{
+    color: #fff;
+}
+
+.button.simplify{
+    padding: 5px 9px;
+    width: fit-content;
+    margin: 0.63em 0em 0.63em 1em;
+}
+
+.button.simplify i {
+    font-size: 1.55em;
+    padding: 0px 0px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    width: 17px;
+}

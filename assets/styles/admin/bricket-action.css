@@ -1,0 +1,13 @@
+
+.row-actions{
+    left: 0;
+    margin-left: auto;
+}
+
+.row-actions i{
+    font-size: 1.75em;
+}
+
+.row-actions span{
+    color: transparent;
+}
