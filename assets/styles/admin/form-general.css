@@ -1,0 +1,50 @@
+
+.form-policy {
+    margin: 2em 0;
+    padding: 1em 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+
+#poststuff .form-policy h2{
+    font-weight: 600;
+    padding: 0em;
+}
+
+.form-policy .protection,
+.form-policy .disemination{
+    margin-left: 5em;
+}
+
+.form-policy .disemination input{
+    margin: 0 .75em 0 0;
+}
+
+.form-policy label.scope{
+    font-weight: 600;
+    margin-bottom: 1em;
+}
+
+.form-policy .option{
+    padding-top: 0.5em;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.form-policy .option label{
+    margin-right: 1em;
+}
+
+.form-policy .option .normal{
+    margin-right: 1em;
+}
+
+.form-policy .option label.form-switch{
+    margin-right: .35em;
+}
+
+.form-policy .form-switch input:checked + .form-icon::before{
+    left: 10px;
+}

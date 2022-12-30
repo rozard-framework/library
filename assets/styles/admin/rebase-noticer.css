@@ -17,6 +17,10 @@
     font-weight: 600;
 }
 
+.notice.hidden{
+    display: none;
+}
+
 .notice button{
     position: relative;
     width: 20px;

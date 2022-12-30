@@ -14,18 +14,18 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
             'assets' => array(
                 'styles' => array(
                     'admin' => array(
-                        'link' => admin_url('extend/styles/'),
-                        'path' => ABSPATH . 'wp-admin/extend/styles/',
+                        'link' => admin_url('library/assets/styles/admin/'),
+                        'path' => ABSPATH . 'wp-admin/library/assets/styles/admin/',
                     ),
                     'public' => array(
-                        'path' => ABSPATH . 'wp-content/extend/script/',
-                        'link' => content_url('extend/script/'),
+                        'path' => ABSPATH . 'wp-content/library/script/',
+                        'link' => content_url('library/script/'),
                     ),
                 ),
                 'script' => array(
                     'admin' => array(
-                        'path' => ABSPATH . 'wp-admin/extend/script/',
-                        'link' => admin_url('extend/script/'),
+                        'path' => ABSPATH . 'wp-admin/library/assets/script/admin/',
+                        'link' => admin_url('library/assets/script/admin/'),
                     ),
                     'public' => array(
                         'path' => ABSPATH . 'wp-content/extend/styles/',
@@ -34,8 +34,8 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
                 ),
                 'images' => array(
                     'admin' => array(
-                        'path' => ABSPATH . 'wp-admin/extend/images/',
-                        'link' => admin_url('extend/images/'),
+                        'path' => ABSPATH . 'wp-admin/library/assets/images/admin/',
+                        'link' => admin_url('library/assets/images/admin/'),
                     ),
                     'public' => array(
                         'path' => ABSPATH . 'wp-content/extend/images/',
@@ -44,8 +44,8 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
                 ),
                 'vendor' => array(
                     'admin' => array(
-                        'path' => ABSPATH . 'wp-admin/extend/vendor/',
-                        'link' => admin_url('extend/vendor/'),
+                        'path' => ABSPATH . 'wp-admin/library/vendor/',
+                        'link' => admin_url('library/vendor/'),
                     ),
                     'public' => array(
                         'path' => ABSPATH . 'wp-content/extend/vendor/',
@@ -54,8 +54,8 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
                 ),
                 'animax' => array(
                     'admin' => array(
-                        'path' => ABSPATH . 'wp-admin/extend/animax/',
-                        'link' => admin_url('extend/animax/'),
+                        'path' => ABSPATH . 'wp-admin/library/animax/',
+                        'link' => admin_url('library/animax/'),
                     ),
                     'public' => array(
                         'path' => ABSPATH . 'wp-content/extend/animax/',

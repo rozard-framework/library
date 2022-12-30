@@ -42,6 +42,7 @@
 	define( 'QM_SHOW_ALL_HOOKS', true );
 	define( 'QM_ENABLE_CAPS_PANEL', false );
 	define( 'QM_DISABLED', false );
+	define( 'QM_HIDE_SELF', false );
 
 
 
@@ -56,12 +57,6 @@
 	require_once rozard . 'asiste/filedir.php';
 	require_once rozard . 'asiste/getters.php';
 	require_once rozard . 'asiste/validat.php';
-
-
-
-	
-/*** INPUTS LIBRARIES */
-	require_once rozard . 'inputs/forms/init.php';
 
 
 
