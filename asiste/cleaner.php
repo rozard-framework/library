@@ -14,9 +14,9 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
     }
 
 
-    function sanitize_number( string $datum ) {
+    function sanitize_int( int $datum ) {
         $int = preg_replace('([^0-9])', '', $datum);
-        $int = (int)$int;
+        $int = intval($int);
         return $int;
     }
 

@@ -28,10 +28,7 @@ function is_role_exist( array $role ) {
         $value = $GLOBALS['wp_roles']->is_role( $role );
         return $value;
     } 
-    else
-    {
-        
-    }
+    return array();
 }
 
 
@@ -42,14 +39,21 @@ function is_uri_valid( string $uri ) {
         return true;
     }
     else if ( ! is_string( $uri ) ) {
-        der( 'This input its not a string.' );
         return false;
     }
     else {
-        dev( 'Uri not found' );
         return false;
     }
 }
+
+// uri query validator
+function uri_has( string $query ) {
+    if ( str_contains( gets_uri(), $query ) ) {
+        return true;
+    }
+    return false;
+}
+
 
 // file extension and existing validator
 function is_file_valid( string $path, array $extensions ) {
@@ -119,7 +123,7 @@ function is_link_valid( array $data ) {
 
 
 // user capabilies validator
-function is_caps_valid( array $data ) {
+function is_caps( array $data ) {
 
     if ( function_exists( 'current_user_can') && empty( $data ) === false ) 
     {

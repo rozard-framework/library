@@ -98,3 +98,48 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
         }
         return $result;
     }
+
+
+/** URI SERIES
+ * 
+ * @param   $post_type  post type/object
+ * @return  array       post status count
+*/
+
+
+    function gets_uri() {
+
+        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')  {
+            $url = "https://"; 
+        }
+        else {
+            $url = "http://";   
+        }  
+        $url.= $_SERVER['HTTP_HOST'];    // Append the host(domain name, ip) to the URL. 
+        $url.= $_SERVER['REQUEST_URI'];   // Append the requested resource location to the URL   
+
+        if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
+            return;
+        }
+        return $url;  
+    }
+
+
+    function gets_uri_query() {
+        $url = $_SERVER['REQUEST_URI'];   // Append the requested resource location to the URL 
+        $url = sanitize_url( $url );
+        return $url;  
+    }
+
+
+    function gets_uri_param( $query ) {
+        $url_components = parse_url( gets_uri_query() );
+        if ( empty ( $url_components['query'] ) ) {
+            return;
+        }
+        parse_str( $url_components['query'], $params );
+        if ( array_key_exists( $query, $params )  ) {
+            return $params[$query];
+        }
+        return;
+    }

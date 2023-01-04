@@ -79,6 +79,9 @@ a {
     overflow-y: unset;
 }
 
+label{
+    text-transform: capitalize;
+}
 
 /* DISPLAY */
 

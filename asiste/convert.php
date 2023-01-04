@@ -11,7 +11,6 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
 
         if ( ! is_string( $string ) ) { return; }
 
-
         $last = $string[strlen( $string ) - 1];
         if( $last == 'y' ) {                     // convert y to ies
             $cut = substr( $string, 0, -1 );   
