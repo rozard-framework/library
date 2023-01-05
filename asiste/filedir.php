@@ -11,7 +11,7 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
 
 
 
-/*** FILES SERIES */
+/*** FILES SYSTEM SERIES */
     
 
     function mk_fil( string $target ) {
@@ -63,13 +63,6 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
             dev ( $target . 'has been deleted');
         }
     }
-
-
-    
-
-
-/*** DIRECTORY SERIES */
-
 
     function mk_dir( string $target, string $chmod, string $chown, string $chgroup ) {
 

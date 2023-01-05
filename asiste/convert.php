@@ -4,7 +4,10 @@
 declare(strict_types=1);
 if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) ){ exit; }
 
+
+
 /** STRING SERIES */
+
 
     // string to plural
     function str_plural( string $string ) {
@@ -73,7 +76,9 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
     }
 
 
+
 /** ARRAYS SERIES */
+
 
     // array to html element
     function array_html( array $datum ) {
@@ -108,6 +113,20 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
         return $result; 
     }
 
+    
+    // array to keys
+    function array_key( array $datum ) {
+    
+        if ( ! is_array( $datum ) ) { return; }
+
+        $sanitized = array();
+        foreach( $datum as $keys => $data ) {
+            $sanitized_data   = pure_keys( $data );
+            $sanitized[$keys] = $sanitized_data;
+        }
+        return $sanitized;
+    }
+
 
     // array to url query arguments
     function array_url_query( array $datum ) {
@@ -134,11 +153,57 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
         return $result; 
     }
 
+    
+    // convert arrow array value to keys 
+    function arrays_key( array $datum ) {
+
+        if ( ! is_array( $string ) ) { return; }
+
+        $sanitized = array();
+        foreach( $datum as $keys => $data ) {
+            $sanitized_keys = str_keys( $keys );
+            $sanitized_data = str_keys( $data );
+            $sanitized[$sanitized_keys] = $sanitized_data;
+        }
+        return $sanitized;
+    }
+
+
+    // convert  arrow array to slug 
+    function arrays_slug( array $datum ) {
+
+        if ( ! is_array( $string ) ) { return; }
+
+        $sanitized = array();
+        foreach( $datum as $keys => $data ) {
+            $sanitized_keys = str_keys( $keys );
+            $sanitized_data = str_slug( $data );
+            $sanitized[$sanitized_keys] = $sanitized_data;
+        }
+        return $sanitized;
+    }
+
+    // convert arrow array to text 
+    function arrays_text( array $datum ) {
+
+        if ( ! is_array( $string ) ) { return; }
+
+        $sanitized = array();
+        foreach( $datum as $keys => $data ) {
+            $sanitized_keys = str_keys( $keys );
+            $sanitized_data = str_text( $data );
+            $sanitized[$sanitized_keys] = $sanitized_data;
+        }
+        return $sanitized;
+    }
+
+
 
 /** URI SERIES */
 
-    // remove protocol and sitename
-    function uri_to_path( string $uri ) {
+
+    // change uri to path
+    function uri_path( string $uri ) {
 
         if ( filter_var( $uri, FILTER_VALIDATE_URL ) ) {
             $path = rtrim( ABSPATH, '/' ) . str_replace( get_site_url() , '',$uri );
@@ -153,7 +218,8 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
         }
     }
 
-    function path_to_uri( string $data ) {
+    // change path to uri
+    function path_uri( string $data ) {
         if ( is_admin() ) {
             $uri = strstr($data, 'wp-admin');
         }
