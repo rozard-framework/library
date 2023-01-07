@@ -62,14 +62,19 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
     }
 
 
-    function take_uri_param( $query ) {
-        $url_components = parse_url( gets_uri_query() );
+    function take_uri_param( $query = null ) {
+        
+        if ( empty( $query ) ) {
+            return;
+        }
+
+        $url_components = parse_url( take_uri_query() );
         if ( empty ( $url_components['query'] ) ) {
             return;
         }
         parse_str( $url_components['query'], $params );
         if ( array_key_exists( $query, $params )  ) {
-            return $params[$query];
+            return pure_slug( $params[$query] );
         }
         return;
     }

@@ -96,6 +96,13 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
         return $datum;
     }
 
+    // url sanitize
+    function pure_space( string $datum ){
+        if ( ! is_string( $datum ) ) { return; }
+        $datum = sanitize_url( $datum );
+        return $datum;
+    }
+
     
 
 /** ARRAY SERIES  */

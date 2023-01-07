@@ -63,3 +63,10 @@
 /** LAYOUTS LIBRARIES */
 
 	require_once rozard . 'layout/renders.php';
+
+	function import_module( $name ) {
+
+		if ( $name  === 'former' ) {
+			require_once rozard . 'former/init.php';
+		}
+	}

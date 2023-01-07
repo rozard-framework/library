@@ -113,6 +113,24 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
     }
 
 
+    // user must have all capabilities 
+    function must_caps( array $data ) {
+
+        if ( function_exists( 'current_user_can') && empty( $data ) === false ) 
+        {
+            $authentication = array();
+            foreach ( $data as $caps_validator ) 
+            {
+                $status = ( current_user_can( $caps_validator ) === true ) ? 'granted' : 'denied'; 
+                array_push( $authentication, $status );
+            }
+            $status = ( in_array( 'denied' , $authentication ) ) ?  false  : true;  
+            return $status;
+        }
+        return null;
+    }
+
+
     // user single capabilities validator
     function usr_can( string $capabilities, $args = null ) {
 
@@ -141,13 +159,27 @@ if ( ! defined('ABSPATH') || ! defined('WP_LIBRARY')  || ! defined( 'rozard' ) )
         }
     }
 
-    // uri query validator
+    // uri single query validator
     function uri_has( string $query ) {
         if ( str_contains( take_uri(), $query ) ) {
             return true;
         }
         return false;
     }
+
+
+    // uri multiple query validator
+    function uris_has( array $queries ) {
+        $result = array();
+        foreach ( $queries as $query ) {
+            $result[] = ( str_contains( take_uri(), $query ) ) ? 'granted' : 'denied';
+        }
+        if ( in_array( 'granted', $result ) ) {
+            return true;
+        }
+        return false;
+    }
+
 
     // admin uri validator 
     function has_link( array $data ) {
