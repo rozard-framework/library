@@ -1,204 +1,145 @@
 <?php
 
-if ( ! class_exists('terms') ) {
 
-    class terms extends cores{
-
-        // method
-        protected $fields;
-        protected $metabox;
-
-        // term property
-        protected $keyid;
-        protected $terms;
-        
+if ( ! class_exists( 'rozard_build_custom_term' ) ) {
+    
+    
+    class rozard_build_custom_term{
 
 
-        // field property
-        protected $field;
+    /** RUNITS */
 
 
-        public function init() {
-
-          $this->fields  = new fields;
-          $this->metabox = new metabox;
-
+        public function __construct( array $data ) {
+            $this->load( $data );
         }
+    
+    
+        private function load( $data ) {
+           
+            foreach( $data as $term ) {
 
+                // main method 
+                $this->core( $term );
 
-
-        public function add( $data = array() ) {
-         
-            $this->terms = $data;
-            add_action('init', array( $this, 'register' ) , 99, 1 );
-                
-        } 
-
-
-
-        public function register() {
-
-            foreach( $this->terms as $term ) {
-
-                // slugs
-                $slugs  = $this->str_keys( $term['cores']['name']);
-
-                // base data
-                $single = $term['cores']['name'];
-                $plural = $this->str_plural( $single );
-                
-                // prefix
-                $single_prefix = $this->str_keys( $slugs );
-                $plural_prefix = $this->str_keys( $plural ) ;
-
-                $labels = array(
-                    'name'              => _x( $plural, 'taxonomy general name' ),
-                    'singular_name'     => _x( $single, 'taxonomy singular name' ),
-                    'search_items'      => __( 'Search '. $plural ),
-                    'all_items'         => __( 'All '. $plural ),
-                    'parent_item'       => __( 'Parent '. $single ),
-                    'parent_item_colon' => __( 'Parent '.  $single ),
-                    'edit_item'         => __( 'Edit '.  $single ),
-                    'update_item'       => __( 'Update '.  $single ),
-                    'add_new_item'      => __( 'Add New '.  $single ),
-                    'new_item_name'     => __( 'New '.  $single .' Name' ),
-                    'menu_name'         => __(  $single ),
-                );
-        
-                $user_arg = array();
-
-
-                $core_arg = array(
-                    'labels'            => $labels,
-                    'description'       => '',
-                    'public'            => true,
-                    'hierarchical'      => $term['cores']['hierarchy'], // make it hierarchical (like categories)
-                    'show_ui'           => true,
-                    'show_in_menu'      => $term['cores']['menu'],
-                    'show_in_nav_menus' => true,
-                    'show_admin_column' => $term['cores']['column'],
-                    'show_in_rest'      => $term['cores']['rest'],
-                    'rewrite'           => [ 'slug' => $slugs ],
-                    'default_term'      => [],
-                );
-
-                // $args =  array_merge( $core_arg, $user_arg );
-
-
-                // assign taxonomy to post
-                register_taxonomy( $slugs , $term['cores']['post'] , $core_arg );
-
-                // register builtin terms
-                // $this->builtin( $term );
+                // add antoher method here
             }
-
-
-
         }
 
 
-        // create builtin terms and fields
-        private function builtin( $term ) {
+
+    /** METHOD */
 
 
+        // core method
+        private function core( array $term ) {
 
-            $taxonomy_name = $this->str_keys( $term['cores']['name']);
-            $builtin_terms = $term['extras']['builtin'];
-            $builtin_field = $term['extras']['fields'];
+            // slugs
+            $slug   = str_keys( $term['label'] );
+
+            // builds
+            $build  = $this->core_arg( $term );
+
+            // object
+            $object = $term['context'];
+        
+            // register taxonomy
+            register_taxonomy( $slug , $object , $build );
+        }
 
 
+        private function core_arg( array $term ) {
 
-            // field method
-            if ( ! empty( $builtin_field ) ||  $builtin_field !== null ){
-                $term_field = [
-                    'taxonomy' => $taxonomy_name,
-                    'fields'   => $builtin_field,
-                ];
-                $this->fields( $term_field );
+            // slugs
+            $slug   = str_keys( $term['label'] );
+
+            // labels
+            $label = $this->core_lab( $term );
+
+            // hirarchy
+            $hirarchy = ( empty( $term['order'] ) || $term['order'] !== true  ) ? false : true ;
+
+            // default term
+            $defaults = ( ! empty( $term['extras'] ) && ! empty( $term['extras']['default'] )) ? $term['extras']['default'] : '' ;
+
+
+            // arguments
+            if ( $term['operate'] === 'system' ) {
+
+                // operate as system module 
+                $args = array(
+                    'labels'                => $label,
+                    'show_ui'               => false,
+                    'rewrite'               => array( 'slug' => $slug ),
+                    'query_var'             => false,
+                    'hierarchical'          => $hirarchy,
+                    'show_in_rest'          => false,
+                    'show_admin_column'     => false,
+                    'default_term'          => $defaults,
+                    'update_count_callback' => '_update_post_term_count',
+                );
             }
+            else if( $term['operate'] === 'manage' ){
 
+                // operate as backend module
+                $args = array(
+                    'labels'                => $label,
+                    'show_ui'               => true,
+                    'rewrite'               => array( 'slug' => $slug ),
+                    'query_var'             => true,
+                    'hierarchical'          => $hirarchy,
+                    'show_in_rest'          => false,
+                    'show_admin_column'     => false,
+                    'default_term'          => $defaults,
+                    'update_count_callback' => '_update_post_term_count',
+                );
+            }
+            else {
+
+                // operate as public module
+                $args = array(
+                    'labels'                => $label,
+                    'show_ui'               => true,
+                    'rewrite'               => array( 'slug' => $slug ),
+                    'query_var'             => true,
+                    'hierarchical'          => $hirarchy,
+                    'show_in_rest'          => true,
+                    'show_admin_column'     => true,
+                    'default_term'          => $defaults,
+                    'update_count_callback' => '_update_post_term_count',
+                );
+            }
+              
+            return $args;
         }
 
-        public function fields( $data = array()  ) {
 
-            $this->field   = $data['fields'];
-            $taxonomy_name = $this->str_keys( $data['taxonomy'] );
-
-            // field init
-            add_action( $taxonomy_name  .'_add_form_fields', [ $this, 'field_add'], 10, 2 );
-            add_action( $taxonomy_name  .'_edit_form_fields', [ $this, 'field_edit'], 10, 2 );
-            add_action( 'created_'. $taxonomy_name  , [ $this, 'field_save' ] );
-            add_action( 'edited_'. $taxonomy_name  , [ $this, 'field_save' ] );
-        }
-
-
-        public function field_add( $taxonomy ) {
-
-            // nonce declarations
-            wp_nonce_field( basename( __FILE__ ), 'rozard_terms_nonce' );
-
-            // render field
-            $this->fields->create( $this->field );
-
-        }
-
-
-        public function field_edit( $term, $taxonomy ) {
-
-            // declare fields
-            $edit_field = $this->field;
-
+        private function core_lab( array $term ) {
             
-            // nonce declarations
-            wp_nonce_field( basename( __FILE__ ), 'rozard_terms_nonce' );
+            $single = str_text( $term['label'] );
+            $plural = str_plural( $term['label'] );
 
-
-            // prepare field data
-            foreach ( $edit_field as $key => &$field ) 
-            {
-                // get field value
-                $get_term_meta = get_term_meta( $term->term_id, $field['cores']['keys'], true  );
-                $field['cores']['value'] = $get_term_meta;
-               
-                // render field as table 
-                $field['display']['render'] = 'table'; 
-            }
-
-
-            // render field
-            $this->fields->create( $edit_field );
+            $labels = array(
+                'name'                       => _x(  $plural, 'taxonomy general name' ),
+                'singular_name'              => _x(  $single, 'taxonomy singular name' ),
+                'search_items'               =>  __( $single .' Topics' ),
+                'popular_items'              => __( 'Popular '. $plural ),
+                'name_field_description'     => '',   
+                'slug_field_description'     => '',   
+                'filter_by_item'             => '',  
+                'all_items'                  => __( 'All '. $plural ),
+                'parent_item'                => null,
+                'parent_item_colon'          => null,
+                'edit_item'                  => __( 'Edit '. $single ), 
+                'update_item'                => __( 'Update '. $single ),
+                'add_new_item'               => __( 'Add New '. $single ),
+                'new_item_name'              => __( 'New '. $single .' Name' ),
+                'separate_items_with_commas' => __( 'Separate '. $plural .' with commas' ),
+                'add_or_remove_items'        => __( 'Add or remove '. $single ),
+                'choose_from_most_used'      => __( 'Most used '. $plural ),
+                'menu_name'                  => __( $plural ),
+            );
+            return $labels;
         }
-
-
-        public function field_save( $term_id ) {
-
-            // declare fields
-            $save_field = $this->field;
-
-
-            // nonce check
-            if ( !isset( $_POST['rozard_terms_nonce'] ) || !wp_verify_nonce( $_POST['rozard_terms_nonce'], basename( __FILE__ ) ) ){
-                return false;
-            }
-
-
-            // save value to database
-            foreach ( $save_field as $field ) 
-            {
-                $set_term_meta = $this->sanitize_field( $field['type'], $_POST[ $field['cores']['keys'] ] );
-                update_term_meta( $term_id, $field['cores']['keys'], $set_term_meta );
-            }
-       }
     }
 }
-
-$rozard_term = new terms;
-$rozard_term->init();
-
-
-// function new_term ( $data ) {
-
-   // $rozard_term = new terms;
-   // $rozard_term->add( $data );
-// }
-

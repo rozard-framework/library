@@ -1,179 +1,125 @@
 <?php
 
-if ( ! class_exists( 'pages' ) ) {
 
-    class pages extends cores{
+/** DEVELE NOTE : USE BODY CLASS TO CRAETE TEMPLATE PAGE 
+ * 
+ */
 
 
-        protected $page;
+if ( ! class_exists( 'rozard_build_custom_page' ) ) {
 
-        public function __construct( $data = array() ) {
+    
+    class rozard_build_custom_page{
 
-            $this->page = $data;
-            add_action( 'admin_menu', array($this, 'build_method' ) );
         
+        private array  $page;
+        private string $mode;
+
+
+    /** RUNITS */
+
+
+        public function __construct( array $data ) {
+            $this->page = $data; 
+            add_action( 'admin_menu', array( $this, 'load' ) );
         }
 
 
-        public function build_method() {
+        public function load() {
 
-            $page = $this->page;
-
-            $build_mode = $page['cores']['mode'] ;
-            $page_title = $page['cores']['title'];
-            $menu_title = $page['cores']['menu'];
-            $capability = $page['access']['caps'] ?: 'manage_options';
-            $menu_slug  = $page['cores']['slug'];
-            $callback   = array( $this, 'page_method' );
-            $icon_url   = $page['cores']['icon'];
-            $position   = $page['cores']['position'];
-            $parent     = $page['cores']['parent'] ?: null ;
-
-            if (  $build_mode === 'modular' && $parent === null ) 
-            {
-                add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $callback, $icon_url, $position );
-            }
-            else if ( $build_mode === 'modular' && $parent !== null )
-            {
-                add_menu_page( $parent, $page_title, $menu_title, $capability, $menu_slug, $callback,  $position );
-            }    
-            else if (  $build_mode === 'setting' )
-            {
-                add_options_page( $page_title, $menu_title, $capability, $menu_slug, $callback,  $position );
-            }
-            else if ( $build_mode === 'manage' ) 
-            {
-                add_management_page( $page_title, $menu_title, $capability, $menu_slug, $callback,  $position );
-            }
-            else if ( $build_mode === 'user' ) 
-            {
-                add_users_page( $page_title, $menu_title, $capability, $menu_slug, $callback,  $position );
-            }
-            else if ( $build_mode === 'theme' ) 
-            {
-                add_theme_page( $page_title, $menu_title, $capability, $menu_slug, $callback,  $position );
-            }
-            else if ( $build_mode === 'comment' ) 
-            {
-                add_comments_page( $page_title, $menu_title, $capability, $menu_slug, $callback,  $position );
-            }
-            else if ( $build_mode === 'media' ) 
-            {
-                add_media_page( $page_title, $menu_title, $capability, $menu_slug, $callback,  $position );
-            }
-            else if ( $build_mode === 'dashboard' ) 
-            {
-                add_dashboard_page( $page_title, $menu_title, $capability, $menu_slug, $callback,  $position );
+            foreach( $this->page as $page ) {
+                $this->core( $page );
             }
         }
 
 
-        public function page_method() {
-
-            echo '<div class="wrap">';
-                echo '<div class="container">';
-                    echo '<div class="columns">';
-                        $callback = $this->str_keys($this->page['cores']['model']);
-                        call_user_func( array( $this, $callback), '');
-                    echo '</div>';
-                echo '</div>';
-            echo '</div>';
-        
-        }
-
-
-        /** LAYOUT */
-
-        private function head_nav() {
+        private function core( array $page ) {
            
-            echo '<div class="outsider column col-xs-12 col-12">';
-                echo '<div class="header">';
-                    call_user_func( array( $this, 'render_pageheader'), '');
-                echo '</div>';
-                echo '<div class="navigation">';
-                    call_user_func( array( $this, 'render_navigation'), '');
-                echo '</div>';
-            echo '</div>';
-            echo '<div class="container column col-xs-12 col-12">';
-                echo '<div class="content">';
-                    call_user_func( array( $this, 'render_containers'), '');
-                echo '</div>';
-            echo '</div>';    
-        }
+
+            // datums
+            $title = $page['title'];
+            $order = $page['orders'];
+            $icons = $page['icons'];
+            $subas = $page['context'];
+            $model = $page['layout'];
+            $menu  = $title;
+            $caps  = ( ! empty( $page['access'] ) ) ? $page['access'] : 'read';
+            $slug  = empty ($page['slugs']) ? str_slug( $title ) : $page['slugs'];
+            $view  = empty ($page['slugs']) ? array( $this, 'view' ) : '';
 
 
-        private function right_nav(){
-
-            echo '<div class="container column col-xs-12 col-lg-8 col-9">';
-                echo '<div class="header">';
-                    call_user_func( array( $this, 'render_pageheader'), '');
-                echo '</div>';
-                echo '<div class="content">';
-                    all_user_func( array( $this, 'render_containers'), '');
-                echo '</div>';
-            echo '</div>'; 
-            echo '<div class="outsider column col-xs-12 col-lg-4 col-3">';
-                echo '<div class="navigation">';
-                    call_user_func( array( $this, 'render_navigation'), '');
-                echo '</div>';
-            echo '</div>';
-
-        }
-
-        private function left_nav() {
-
-            echo '<div class="outsider column col-xs-12  col-lg-4 col-3">';
-                echo '<div class="navigation">';
-                    call_user_func( array( $this, 'render_navigation'), '');
-                echo '</div>';
-            echo '</div>';
-            echo '<div class="container column col-xs-12  col-lg-8 col-9">';
-                echo '<div class="header">';
-                    call_user_func( array( $this, 'render_pageheader'), '');
-                echo '</div>';
-                echo '<div class="content">';
-                    call_user_func( array( $this, 'render_containers'), '');
-                echo '</div>';
-             echo '</div>'; 
-        }
-
-     
-
-        /** RENDER */
-        private function render_pageheader() {
-
-            $page =  $this->page;
-
-            $header = array(
-                'layout' => $page['render']['header']['layout'],          // value : default | minimize
-                'title'  => get_admin_page_title(),
-                'icons'  => $page['render']['header']['icons'],
-                'descs'  => $page['render']['header']['descs'],
-            );
-            new heading( $header );
-        }
-
-
-        private function render_navigation() { 
-
-            $menus = $this->page['section'];
-            
-            
-            foreach( $menus as $menu ) 
-            {
-                new tabs();
-                echo $menu['panel']['title'];
+            // register 
+            if ( $subas === 'comment' ) {
+                add_comments_page( $title, $menu, $caps, $slug, $view,  $order );
+            }
+            else if ( $subas === 'dashboard' ) {
+                add_dashboard_page( $title, $menu, $caps, $slug, $view,  $order );
+            }
+            else if ( $subas === 'manage' ) {
+                add_management_page( $title, $menu, $caps, $slug, $view,  $order );
+            }
+            else if ( $subas === 'media' ) {
+                add_media_page( $title, $menu, $caps, $slug, $view,  $order );
+            }
+            else if ( $subas === 'setting' ) {
+                add_options_page( $title, $menu, $caps, $slug, $view,  $order );
+            }
+            else if ( $subas === 'theme' ) {
+                add_theme_page( $title, $menu, $caps, $slug, $view,  $order );
+            }
+            else if ( $subas === 'user' ) {
+                add_users_page( $title, $menu, $caps, $slug, $view,  $order );
+            }
+            else if ( $subas !== null && $page['context'] !== 'main' ) {
+                add_submenu_page( $subas, $title, $menu, $caps, $slug, $view,  $order );
+            } 
+            else {
+                add_menu_page( $title, $menu, $caps, $slug, $view, $icons, $order );
             }
 
-
-        }
-        
-        private function render_containers() { 
-
+            // assign mode
+            $this->mode = str_slug( $model ) ;
         }
 
-        
-        /** PARTIAL */
-       
+
+
+    /** RENDER */
+
+
+        public function view() {
+
+            global $current_screen;
+            $page = $current_screen->id;
+            $tops = str_replace( 'toplevel_page_', '', $page );
+            $slug = str_replace( 'admin_page_', '', $tops );
+            $mode = '';
+
+            // filter and prepare
+            foreach( $this->page as $page ) {
+                if( str_slug( $page['title'] ) === str_slug( $slug )  ) {
+                    $mode = $page['layout'];
+                }
+            }
+  
+            echo '<div class="wrap build '. $mode . '">';
+                echo '<header>';
+                    do_action( "{$slug}_head", $page );
+                echo '</header>';
+                echo '<main class="row">';
+                    echo '<div class="page-left">';
+                        do_action( "{$slug}_left", $page );
+                    echo '</div>';
+                    echo '<div class="page-right">';
+                        do_action( "{$slug}_right", $page );
+                    echo '</div>';
+                    echo '<div class="page-exts">';
+                        do_action( "{$slug}_exts", $page );
+                    echo '</div>';
+                echo '</main>';
+                echo '<div class="footer">';
+                    do_action( "{$slug}_foot", $page );
+                echo '</div>';
+            echo '</div>';
+        }
     }
 }

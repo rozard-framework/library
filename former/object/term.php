@@ -1,9 +1,9 @@
 <?php
 
-class rozard_former_taxonomy extends rozard_former_helper{
+class rozard_former_taxonomy{
 
 
-    use render_form;
+    use rozard_former_fields;
 
     private array $render;
     private array $saving;
@@ -21,7 +21,6 @@ class rozard_former_taxonomy extends rozard_former_helper{
     }
 
 
-
     public function make( $taxonomy ) {
 
         // form level
@@ -35,7 +34,7 @@ class rozard_former_taxonomy extends rozard_former_helper{
             foreach( $form['section'] as $section ) {
 
 
-                printf( '<h3>%s</h3> ', esc_html( $section[ 'title' ] ) );
+                printf( '<h3>%s</h3> ', esc_html( $section[ 'name' ] ) );
 
                 // field  level
                 foreach( $section['fields'] as $field ) {
@@ -96,10 +95,15 @@ class rozard_former_taxonomy extends rozard_former_helper{
     public function save( $term_id, $tt_id ) {
 
         foreach( $this->saving as $field ) {
+
             $unique = $field['unique'];
-            $datum  = $_POST[ $unique ];
-            $value  = sanitize_text_field( $datum );
-            $final  = ( isset( $datum ) ) ? update_term_meta( $term_id, $unique , $value ) : update_term_meta( $term_id, $unique );
+
+            if ( isset( $_POST[ $unique ] ) ) {
+                update_term_meta( $term_id, $unique, $_POST[ $unique ] );
+            }
+            else {
+                update_term_meta( $term_id, $unique );
+            }
         }
     }
 }

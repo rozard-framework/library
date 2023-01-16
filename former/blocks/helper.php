@@ -10,12 +10,12 @@ class rozard_former_helper{
 
         foreach( $data as $key => $form ) {
 
-           $unique = $form['filter'];
+            $unique = $form['filter'];
             
             if ( $form['filter'] === $unique ) {
                 
                 // forms
-                $form_id =  str_slug( $key .'-'. $form['title'] );
+                $form_id =  str_slug( $key );
 
               
                 $result[ $unique ]['render'][$form_id]['filter']  =  $form['filter'] ;
@@ -27,12 +27,12 @@ class rozard_former_helper{
 
               
                 // section
-                foreach( $form['section'] as $section_id => $section ) {
+                foreach( $form['section'] as $key => $section ) {
 
                     // render prepare field
-                    $sect_id =  str_slug( $key .'-'. $section_id );
+                    $sect_id =  str_slug( $key );
 
-                    $result[$unique]['render'][$form_id]['section'][$sect_id]['title']  =  $section['title'];
+                    $result[$unique]['render'][$form_id]['section'][$sect_id]['name']   =  $section['name'];
                     $result[$unique]['render'][$form_id]['section'][$sect_id]['descs']  =  $section['descs'];
                     $result[$unique]['render'][$form_id]['section'][$sect_id]['icons']  =  $section['icons'];
                     $result[$unique]['render'][$form_id]['section'][$sect_id]['access'] =  $section['access'];
@@ -40,15 +40,15 @@ class rozard_former_helper{
                     
 
                     // unset section
-                    unset($form['section'][$section_id] );
+                    unset($form['section'][$key] );
 
 
                     // fields
                     foreach ( $section['fields'] as $field_id => $field ) {
-                    
 
-                        // assign field unique
-                        $field_key =  str_slug( $form_id. '-'. $sect_id .'-'. $field_id  );
+                        // assign field unique - add underscore to hide this meta from default custom field
+
+                        $field_key = str_slug( $form_id.'-'.$field_id );
 
                         // render prepare field
                         $result[ $unique ]['render'][$form_id]['section'][$sect_id]['fields'][$field_key] = $field;
@@ -65,8 +65,11 @@ class rozard_former_helper{
         return $result;
     }
 
-
-    public function pure( $type, $value ) {
-
-    }
+    
 }
+
+/**
+ * 
+ *  ref for how to protected meta
+ *  https://wordpress.stackexchange.com/questions/1859/how-can-i-remove-specific-custom-post-meta-from-the-custom-fields-fieldset
+ */
