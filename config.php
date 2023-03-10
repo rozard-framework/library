@@ -8,17 +8,23 @@
 
 
 
-/*** CORES */ 
+/*** SITE */
 
     if ( ! defined( 'MULTISITE' ) ) {
         define( 'MULTISITE', true );
     }
 
-    if ( ! defined( 'PATH_CURRENT_SITE' ) ) {
+    if ( ! MULTISITE === true  ) {
         define( 'PATH_CURRENT_SITE', '/' );
         define( 'SITE_ID_CURRENT_SITE', 1 );
         define( 'BLOG_ID_CURRENT_SITE', 1 );
+        define( 'SUBDOMAIN_INSTALL', false );
+        define( 'DOMAIN_CURRENT_SITE', 'localhost' );
     }
+
+
+    /*** CORES */ 
+
 
     define( 'DISALLOW_FILE_EDIT', false );
     define( 'DISALLOW_FILE_MODS', false );
