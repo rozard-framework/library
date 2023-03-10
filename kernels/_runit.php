@@ -17,6 +17,7 @@ if ( ! class_exists( 'rozard_kernels' ) ) {
     
         public function init() {
             $this->kernel();
+            $this->probes();
         }
     
     
@@ -31,11 +32,10 @@ if ( ! class_exists( 'rozard_kernels' ) ) {
     
         }
     
-        private function former() {
-            require_once  rozard . 'kernels/former/field/general.php'; 
-            require_once  rozard . 'kernels/former/forms/general.php'; 
-            require_once  rozard . 'kernels/former/forms/settings.php'; 
-            require_once  rozard . 'kernels/former/forms/options.php'; 
+        private function probes() {
+
+            require_once  rozard . 'kernels/probe/general.php'; 
+            new rozard_kernel_probe_main;
         }
     }
 }
