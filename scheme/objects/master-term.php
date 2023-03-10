@@ -1,0 +1,26 @@
+<?php
+ $args = array(
+    'labels'                => array(
+        'name'              => _x(  $name, 'taxonomy general name', 'rozard_framework' ),
+        'singular_name'     => _x(  $name, 'taxonomy singular name', 'rozard_framework' ),
+        'search_items'      => __( 'Search Event '. $name .' Categories', 'rozard_framework' ),
+        'all_items'         => __( 'All Event '. $name , 'rozard_framework' ),
+        'view_item'         => __( 'View Event '. $name , 'rozard_framework' ),
+        'parent_item'       => __( 'Parent Event '. $name, 'rozard_framework' ),
+        'parent_item_colon' => __( 'Parent Event '. $name.':', 'rozard_framework' ),
+        'edit_item'         => __( 'Edit Event '. $name, 'rozard_framework' ),
+        'update_item'       => __( 'Update Event '. $name, 'rozard_framework' ),
+        'add_new_item'      => __( 'Add New Event '. $name, 'rozard_framework' ),
+        'new_item_name'     => __( 'New Event Name'. $name, 'rozard_framework' ),
+        'not_found'         => __( 'No Event '. $name .' Found', 'rozard_framework' ),
+        'back_to_items'     => __( 'Back to Event '. $name, 'rozard_framework' ),
+        'menu_name'         => __(  $name, 'rozard_framework' ),
+    ),
+    'hierarchical'      => true,
+    'public'            => true,
+    'show_ui'           => true,
+    'show_admin_column' => true,
+    'query_var'         => true,
+    'rewrite'           => array( 'slug' => $slug ),
+    'show_in_rest'      => true,
+);
