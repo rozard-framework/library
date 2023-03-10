@@ -20,7 +20,7 @@ define('WPMU_PLUGIN_DIR',  ABSPATH .'wp-admin/module/');
 require_once  ABSPATH . 'wp-settings.php';
 ```
 
-4. masukan baris berikut sebelum `/* That's all, stop editing! Happy publishing. */` pada file wp-config.php
+3. masukan baris berikut sebelum `/* That's all, stop editing! Happy publishing. */` pada file wp-config.php
 
 ```
 /** Absolute path to the WordPress directory. */
@@ -29,3 +29,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 require_once  ABSPATH . 'wp-setting.php';
 ```
+
+4. clone rozard module dari github
