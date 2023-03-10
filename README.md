@@ -4,33 +4,28 @@ wordpress rozard library engine
 
 ## Installasi
 
-1. aktivkan mode multisite wordpress terlebih dahulu
-2. Clone repository di luar dari directory wodpress, /var/www/html
-3. tambahkan baru berikut pada bagian paling bawah file wp-config.php
+1. Aktivkan mode multisite wordpress terlebih dahulu
+2. buat file dengan nama wp-setting.php dan isikan file dengan syntax di bawah
 
 
 ```
-/** Sets up WordPress extended directory. */
-if ( ! defined( 'EXTPATH' ) ) {
-	define( 'EXTPATH', dirname( ABSPATH , 2 ) ); 
+/** REGISTER LIBRARY  */
+if ( ! defined( 'ABPSATH' ) ) {
+	define( 'ABPSATH', __DIR__ . '/wp-admin/library/' ); 
 }
 
-/** Sets up WordPress extended vars and included files. */
-require_once EXTPATH . '/rozard-library/initialize.php';
+
+require_once  ABPSATH . 'loader.php';
+define('WPMU_PLUGIN_DIR',  ABSPATH .'wp-admin/module/');
+require_once  ABSPATH . 'wp-settings.php';
 ```
 
 4. masukan baris berikut sebelum `/* That's all, stop editing! Happy publishing. */` pada file wp-config.php
 
 ```
-/** ROZARD - SECURITY */
-define( 'DISALLOW_FILE_EDIT', false );
-define( 'DISALLOW_FILE_MODS', false );
-
-/** ROZARD - PERFORMA */
-define( 'DISABLE_WP_CRON', true);
-define( 'AUTOSAVE_INTERVAL', 300); // seconds
-define( 'WP_POST_REVISIONS', false);
-define( 'WP_MEMORY_LIMIT', '128M' );
-define( 'WP_MAX_MEMORY_LIMIT', '512M');
-define( 'WP_CACHE', true);
+/** Absolute path to the WordPress directory. */
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', __DIR__ . '/' );
+}
+require_once  ABSPATH . 'wp-setting.php';
 ```
