@@ -234,7 +234,7 @@ if ( ! class_exists( 'rozard_service_formats' ) ) {
 
 
             // render
-            printf( '<header class="heading">
+            printf( '<header class="heading format">
                         <div class="headnav mb-5">
                             <div class="info mr-5">%s</div>
                             <ul class="navi">%s</ul>
@@ -263,7 +263,7 @@ if ( ! class_exists( 'rozard_service_formats' ) ) {
                                 esc_url( admin_url( 'post-new.php?post_type=' . $this->type ) ),
                               );
 
-            $list .= sprintf( '<div class="button button-primary create-action">Search</div>' );
+            // $list .= sprintf( '<div class="button button-primary create-action">Search</div>' );
 
 
             printf( '<div class="side section mb-5"><div>%s</div></div>', 

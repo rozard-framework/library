@@ -3,10 +3,10 @@
 declare(strict_types=1);
 if ( ! defined('ABPSATH') || ! defined( 'rozard' ) ){ exit; }
 
-if ( ! class_exists('rozard_packer_dashed_brands') ) {
+if ( ! class_exists('rozard_kernel_probe_brands') ) {
 
 
-    class rozard_packer_dashed_brands{
+    class rozard_kernel_probe_brands{
 
         
         public function __construct() {

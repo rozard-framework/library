@@ -190,9 +190,14 @@ if ( ! class_exists( 'rozard_service_feeders' ) ) {
 
         public function side() {
 
+            $node = 'feedback';
 
-            $node =  str_slug( $_REQUEST['node'] );
             
+            if ( ! empty( $_REQUEST['node'] ) ) {
+                $node = str_slug( $_REQUEST['node'] );
+            }
+
+           
             do_action( 'manage_side_before',  $node );
 
 

@@ -3,8 +3,6 @@
 
 function object_test_scheme(   $scheme ) {
 
-
-
     $scheme['former']['test_1'] = array(
         'keys' => 'test_1',         // setting keys
         'name' => 'Test Form',      // form title 

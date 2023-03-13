@@ -3,13 +3,10 @@
 declare(strict_types=1);
 if ( ! defined('ABPSATH') || ! defined( 'rozard' ) ){ exit; }
 
-if ( ! class_exists('rozard_packer_dashed_layouts') ) {
+if ( ! class_exists('rozard_kernel_probe_layouts') ) {
 
-    class rozard_packer_dashed_layouts {
-
-
-
-        
+    class rozard_kernel_probe_layouts {
+      
         private string $logo;
         private string $stat;
         private string $vend;
@@ -19,6 +16,7 @@ if ( ! class_exists('rozard_packer_dashed_layouts') ) {
             $this->hook();
         }
 
+        
         private function hook() {
             add_action( 'all_admin_notices', array( $this, 'header' ));
             add_action( 'admin_footer_text', array( $this, 'footer' ));
@@ -34,10 +32,8 @@ if ( ! class_exists('rozard_packer_dashed_layouts') ) {
 
             global $title;
 
-
             do_action('query_template');
     
-
             echo '<div class="main-nav">';
                 do_action( 'admin_tops' );
                 do_action( str_keys( $title ) .'_left' );
@@ -67,7 +63,6 @@ if ( ! class_exists('rozard_packer_dashed_layouts') ) {
 
 
             // right sidebar 
-
             echo '<asside class="right-nav">';
                 do_action( 'admin_right' );
                 do_action( str_keys( $title ) .'_right' );

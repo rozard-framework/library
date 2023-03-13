@@ -1,15 +1,19 @@
 <?php
 
+declare(strict_types=1);
+if ( ! defined('ABPSATH') || ! defined( 'rozard' ) ){ exit; }
 
-if ( ! class_exists( 'rozard_kernel_probe_main' ) ) {
+if ( ! class_exists( 'rozard_kernel_probe_general' ) ) {
 
-    class rozard_kernel_probe_main{
+    class rozard_kernel_probe_general{
+
 
         public function __construct() {
 
             $this->pingback();
             $this->xmlrpc();
         }
+
 
         public function pingback() {
             add_action( 'pre_ping', array( $this, 'stop_pingback' ) );

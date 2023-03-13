@@ -148,7 +148,7 @@ if ( ! class_exists( 'rozard_theme_render' ) ) {
 
 
             // footer
-            printf('<footer class="footer pt-5 mt-5">');
+            printf('<footer class="footer mt-5">');
                 require_once rozard_frontend . 'master/footer.php';
                 new rozard_theme_footer;
             printf('</footer>');

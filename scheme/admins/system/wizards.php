@@ -245,7 +245,7 @@ if ( ! class_exists( 'rozard_system_wizards' ) ) {
 
         public function side() {
 
-            $node = 'users';
+            $node = 'general';
             
             if ( ! empty( $_REQUEST['node']  ) ) {
 
@@ -259,7 +259,6 @@ if ( ! class_exists( 'rozard_system_wizards' ) ) {
 
                 $node =  'plugins';
             }
-
 
 
             do_action( 'manage_side_before',  $node );

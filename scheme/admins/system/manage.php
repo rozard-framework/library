@@ -42,6 +42,7 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
 
         }
 
+
         private function data_core() {
             
 
@@ -242,7 +243,6 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
         }
 
 
-
         private function hook() {
             $this->base();
             $this->user();
@@ -359,11 +359,11 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
 
                 $node =  str_slug( $_REQUEST['node'] );
             }
-            else if (  uri_has( 'theme-install' )  ) {
+            else if ( uri_has( 'theme-install' )  ) {
 
                 $node =  'themes';
             }
-            else if (  uri_has( 'plugin-install' )  ) {
+            else if ( uri_has( 'plugin-install' )  ) {
 
                 $node =  'plugins';
             }
@@ -396,14 +396,18 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
 
 
 
-
     /***  USERS  */
 
 
-
         private function user() {
-            add_action( 'network_admin_menu', array( $this, 'user_make' ) );
-            add_action( 'manage_side_before', array( $this, 'user_role' ) );
+
+            if ( ! uris_has( array( 'network/users.php', 'network/user-new.php.php', 'users-' ) ) ) {
+                return;
+            }
+
+            add_action( 'network_admin_menu',  array( $this, 'user_make' ) );
+            add_action( 'manage_side_before',  array( $this, 'user_acts' ) );
+            add_action( 'manage_side_after',   array( $this, 'user_role' ) );
         }
 
 
@@ -450,6 +454,33 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
         }
 
 
+        public function user_acts() {
+
+            if ( uri_has( 'network/users.php' ) ) {
+
+                $list  = '';
+
+                if ( ! empty( $_REQUEST[ 's' ] ) ) {
+    
+                    $list .= sprintf( '<button type="button" class="button button-primary">
+                                            <a href="%s">Clear Result</a>
+                                        </button>',
+                                        esc_url(  remove_query_arg( 's' ) ),
+                                    );
+                }
+                else {
+    
+                    $list .= sprintf( '<div class="open-toggle button button-primary create-action" data-target="search-box">Search</div>' );
+                }
+       
+                printf( '<div class="side section mb-5"><div>%s</div></div>', 
+                            $list 
+                        );
+            }
+        }
+
+
+
         public function user_role() {
 
             if ( ! uri_has( 'network/users.php?node=users' ) ) {
@@ -480,8 +511,14 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
 
 
         private function plug() {
-            add_action( 'network_admin_menu', array( $this, 'plug_make' ) );
-            add_action( 'manage_side_before',  array( $this, 'plug_stat' ) );
+
+            if ( ! uris_has( array( 'network/plugins.php', 'network/plugin-install.php', 'plugin-' ) ) ) {
+                return;
+            }
+
+            add_action( 'network_admin_menu',  array( $this, 'plug_make' ) );
+            add_action( 'manage_side_before',  array( $this, 'plug_acts' ) );
+            add_action( 'manage_side_after',   array( $this, 'plug_stat' ) );
         }
 
 
@@ -525,6 +562,39 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
             }
         }
 
+        
+        public function plug_acts() {
+
+
+            $list  = '';
+
+            if ( uri_has( 'network/plugins.php' ) ) {
+               
+                if ( ! empty( $_REQUEST[ 's' ] ) ) {
+
+                    $list .= sprintf( '<button type="button" class="button button-primary">
+                                            <a href="%s">Clear Result</a>
+                                        </button>',
+                                        esc_url(  remove_query_arg( 's' ) ),
+                                    );
+                }
+                else {
+
+                    $list .= sprintf( '<div class="open-toggle button button-primary create-action" data-target="search-box">Search</div>' );
+                }
+            }
+
+
+            if ( uri_has( 'network/plugin-install.php' ) ) {
+
+                $list .= sprintf( '<button type="button" class="upload-view-toggle button button-primary hide-if-no-js" aria-expanded="false">Upload Plugins</button>' );
+            }
+           
+            printf( '<div class="side section mb-5"><div>%s</div></div>', 
+                        $list 
+                    );
+        }
+
 
         public function plug_stat() {
 
@@ -559,8 +629,14 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
 
         
         private function thme() {
-            add_action( 'network_admin_menu', array( $this, 'thme_make' ) );
-            add_action( 'manage_side_before', array( $this, 'thme_stat' ) );
+
+            if ( ! uris_has( array( 'network/themes.php', 'network/theme-install.php', 'themes' ) ) ) {
+                return;
+            }
+
+            add_action( 'network_admin_menu',  array( $this, 'thme_make' ) );
+            add_action( 'manage_side_before',  array( $this, 'thme_acts' ) );
+            add_action( 'manage_side_after',   array( $this, 'thme_stat' ) );
         }
 
 
@@ -606,9 +682,41 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
         }
 
 
+        public function thme_acts() {
+
+            $list  = '';
+
+            if ( uri_has( 'network/themes.php' ) ) {
+               
+                if ( ! empty( $_REQUEST[ 's' ] ) ) {
+
+                    $list .= sprintf( '<button type="button" class="button button-primary">
+                                            <a href="%s">Clear Result</a>
+                                        </button>',
+                                        esc_url(  remove_query_arg( 's' ) ),
+                                    );
+                }
+                else {
+
+                    $list .= sprintf( '<div class="open-toggle button button-primary create-action" data-target="search-box">Search</div>' );
+                }
+            }
+
+
+            if ( uri_has( 'network/theme-install.php' ) ) {
+
+                $list .= sprintf( '<button type="button" class="upload-view-toggle button button-primary hide-if-no-js" aria-expanded="false">Upload Themes</button>' );
+            }
+           
+            printf( '<div class="side section mb-5"><div>%s</div></div>', 
+                        $list 
+                    );
+        }
+
+
         public function thme_stat() {
 
-            if ( ! uri_has( 'network/themes.php?node=themes' ) ) {
+            if ( ! uri_has( 'network/themes.php' ) ) {
                 return;
             }
 
@@ -618,6 +726,10 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
             $list = '';
 
             foreach( $totals as $keys => $total ) {
+
+                if ( $keys === 'all' ) {
+                    $keys = 'Installed';
+                }
 
                 $name  = str_text( ucwords( $keys ) );
                 $link  = add_query_arg( 'theme_status', $keys, network_admin_url( 'themes.php' ) );
@@ -629,7 +741,7 @@ if ( ! class_exists( 'rozard_system_manage' ) ) {
             }
 
 
-            printf( '<div class="side section mb-5"><h3>%s</h3><ul>%s</ul></div>', ucwords( 'Filter' ),  $list );
+            printf( '<div class="side section mb-5"><h3>%s</h3><ul>%s</ul></div>', ucwords( 'Status' ),  $list );
         }
 
 

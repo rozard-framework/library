@@ -15,25 +15,11 @@ if ( ! class_exists('rozard_packer_dashed') ) {
         }
 
         private function hook() {
-            $this->branded();
-            $this->layouts();
+
             $this->theming();
         }
 
 
-        private function branded() {
-
-            require_once 'brands.php';
-            new rozard_packer_dashed_brands;
-            
-        }
-
-        private function layouts() {
-            
-            require_once 'layouts.php';
-            new rozard_packer_dashed_layouts;
-
-        }
 
         private function theming() {
          

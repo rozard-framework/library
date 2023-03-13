@@ -10,14 +10,16 @@ if ( ! defined('ABPSATH') || ! defined( 'rozard' ) ){ exit; }
  * */
 
 
-global $former, $themes;
 
 
 
-/** BRAND ID */
 
 
-    $former['brand_id'] = array(
+function rozard_theme_config( $scheme ) {
+
+    /** BRAND ID */
+
+    $scheme['former']['brand_id'] = array(
         'name' => 'Brand Info',     // seting name 
         'icon' => '',               // feature icon
         'desc' => 'Description',    // setting descroption
@@ -271,8 +273,7 @@ global $former, $themes;
     );
 
 
-
-    $themes['config'][] = array(
+    $scheme['themes']['config'][] = array(
         'keys' => 'brand_config',           // setting keys
         'name' => 'Brand Identity',         // module title
         'desc' => 'Fill with your brand identity',       // option description 
@@ -283,4 +284,12 @@ global $former, $themes;
         'form' => 'brand_id',
     );
 
+    
+    return $scheme;
+}
+add_filter( 'register_scheme', 'rozard_theme_config' );
+
+
+
+  
 

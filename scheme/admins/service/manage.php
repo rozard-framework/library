@@ -58,9 +58,22 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
             // users
             $usernav = array(
                 'name' => 'Users',
-                'caps' => 'manage_network_users',
+                'caps' => 'list_users',
                 'icon' => 'dashicons-admin-users',
                 'link' => admin_url( 'users.php?node=users' ),
+            );
+
+            $userman = array(
+                'keys' => 'manage',
+                'name' => 'Manage',
+                'menu' => 'Manage',
+                'desc' => str_text( 'Member management system system.' ),
+                'icon' => 'dashicons-admin-users',
+                'caps' => 'list_users',
+                'node' => 'users',
+                'sort' => 10,
+                'form' => '',
+                'link' =>  admin_url( 'users.php?node=system&cell=users' ),
             );
 
 
@@ -70,7 +83,7 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'menu' => 'create',
                 'desc' => str_text( 'Install Themes module.' ),
                 'icon' => 'dashicons-admin-appearance',
-                'caps' => 'manage_network_users',
+                'caps' => 'create_users',
                 'node' => 'users',
                 'sort' => 10,
                 'form' => '',
@@ -78,18 +91,7 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
             );
 
 
-            $userman = array(
-                'keys' => 'manage',
-                'name' => 'Manage',
-                'menu' => 'Manage',
-                'desc' => str_text( 'Member management system system.' ),
-                'icon' => 'dashicons-admin-users',
-                'caps' => 'manage_network_users',
-                'node' => 'users',
-                'sort' => 10,
-                'form' => '',
-                'link' =>  admin_url( 'users.php?node=system&cell=users' ),
-            );
+           
 
 
             $this->raws['head']['users']   = $usernav; 
@@ -100,11 +102,12 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
 
         private function data_them() {
 
+
             
             // themes
             $thenav = array(
                 'name' => 'Themes',
-                'caps' => 'manage_network_users',
+                'caps' => 'switch_themes',
                 'icon' => 'dashicons-admin-users',
                 'link' => admin_url( 'themes.php?node=themes' ),
             );
@@ -116,7 +119,7 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'menu' => 'Manage',
                 'desc' => str_text( 'Themes controller module.' ),
                 'icon' => 'dashicons-admin-appearance',
-                'caps' => 'manage_network_themes',
+                'caps' => 'switch_themes',
                 'node' => 'themes',
                 'sort' => 10,
                 'form' => '',
@@ -130,7 +133,7 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'menu' => 'install',
                 'desc' => str_text( 'Install Themes module.' ),
                 'icon' => 'dashicons-admin-appearance',
-                'caps' => 'manage_network_themes',
+                'caps' => 'switch_themes',
                 'node' => 'system',
                 'cell' => 'themes',
                 'sort' => 10,
@@ -145,7 +148,7 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'menu' => 'Menus',
                 'desc' => str_text( 'Install Themes module.' ),
                 'icon' => 'dashicons-admin-appearance',
-                'caps' => 'manage_network_themes',
+                'caps' => 'edit_theme_options',
                 'node' => 'system',
                 'cell' => 'themes',
                 'sort' => 10,
@@ -160,7 +163,7 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'menu' => 'Widgets',
                 'desc' => str_text( 'Install Themes module.' ),
                 'icon' => 'dashicons-admin-appearance',
-                'caps' => 'manage_network_themes',
+                'caps' => 'switch_themes',
                 'node' => 'system',
                 'cell' => 'themes',
                 'sort' => 10,
@@ -203,7 +206,7 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
             // plugins
             $plunav = array(
                 'name' => 'Plugins',
-                'caps' => 'manage_network_users',
+                'caps' => 'activate_plugins',
                 'icon' => 'dashicons-admin-users',
                 'link' => admin_url( 'plugins.php?node=plugins' ),
             );
@@ -289,6 +292,9 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'link' => admin_url('tools.php?node=wizard') ,
             );
 
+            $this->raws['head']['wizard']   = $toolnav;
+            $this->raws['page']['wizard'][] = $toolkit;
+
 
             $imports = array(
                 'keys' => 'import',
@@ -302,6 +308,8 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'form' => '',
                 'link' => admin_url('import.php?node=wizard') ,
             );
+
+            $this->raws['page']['wizard'][] = $imports;
 
 
             $exports = array(
@@ -317,6 +325,8 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'link' => admin_url('export.php?node=wizard') ,
             );
 
+            $this->raws['page']['wizard'][] = $exports;
+
 
             $healter = array(
                 'keys' => 'health',
@@ -330,6 +340,8 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'form' => '',
                 'link' => admin_url('site-health.php?node=wizard') ,
             );
+
+            $this->raws['page']['wizard'][] = $healter;
 
 
             $exptusr = array(
@@ -345,6 +357,8 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'link' => admin_url('export-personal-data.php?node=wizard') ,
             );
 
+            $this->raws['page']['wizard'][] = $exptusr;
+
 
             $delsusr = array(
                 'keys' => 'erase_user_data',
@@ -358,15 +372,8 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
                 'form' => '',
                 'link' => admin_url('erase-personal-data.php?node=wizard') ,
             );
-
-
-            $this->raws['head']['wizard']   = $toolnav;
-            $this->raws['page']['wizard'][] = $toolkit;
-            $this->raws['page']['wizard'][] = $imports;
-            $this->raws['page']['wizard'][] = $exports;
-            $this->raws['page']['wizard'][] = $healter;
-            $this->raws['page']['wizard'][] = $exptusr;
             $this->raws['page']['wizard'][] = $delsusr;
+            
         }
 
 
@@ -719,7 +726,7 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
 
 
             // render
-            printf( '<header class="heading">
+            printf( '<header class="heading manage">
                         <div class="headnav mb-5">
                             <div class="info mr-5">%s</div>
                             <ul class="navi">%s</ul>
@@ -845,46 +852,44 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
             }
 
 
-            // filter sidebar
-            $this->side_plug();
-            $this->side_them();
-            $this->side_user();
-
             
-            if ( ! isset( $this->raws['page'][$node] ) ) {
-                return;
-            }
+            if ( isset( $this->raws['page'][$node] ) ) {
+               
+                // extract menu
+                $list = '';
+            
+                foreach( $this->raws['page'][$node] as $keys => $menu ) {
 
+                    if ( ! usr_can( $menu['caps'] )  ) {
+                        continue;
+                    }
 
-            // extract menu
-            $list = '';
-           
-            foreach( $this->raws['page'][$node] as $keys => $menu ) {
-
-                if ( ! usr_can( $menu['caps'] )  ) {
-                    continue;
+                    $name  = str_text( ucwords( $menu['name'] ) );
+                    $link  = $menu['link'];
+                    $list .= sprintf( '<li class="my-4"><a href="%s">%s</a></li>',
+                                    esc_url( $link ),
+                                    esc_html( $name )
+                                ); 
                 }
 
-                $name  = str_text( ucwords( $menu['name'] ) );
-                $link  = $menu['link'];
-                $list .= sprintf( '<li class="my-4"><a href="%s">%s</a></li>',
-                                esc_url( $link ),
-                                esc_html( $name )
-                            ); 
+                if ( ! empty( $list ) ) {
+                    $title =  str_text( ucwords( $node ) );
+                    printf( '<div class="side section mb-5"><h3>%s</h3><ul>%s</ul></div>', $title,  $list );
+                }
             }
 
 
-            $title =  str_text( ucwords( $node ) );
-            printf( '<div class="side section mb-5"><h3>%s</h3><ul>%s</ul></div>', $title,  $list );
+            // filter sidebar
+            $this->stat_plug();
+            $this->stat_them();
+            $this->stat_user();
+            
 
             do_action( 'manage_side_after',  $node );
-
-           
-           
         }
 
 
-        public function side_user() {
+        public function stat_plug() {
 
 
             if ( ! uri_has( 'users.php' ) ) {
@@ -919,7 +924,7 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
         }
 
 
-        public function side_them() {
+        public function stat_them() {
             
 
             global $totals, $status;
@@ -947,7 +952,7 @@ if ( ! class_exists( 'rozard_service_manage' ) ) {
         }
 
 
-        public function side_plug() {
+        public function stat_user() {
             
 
             if ( ! uri_has( 'plugins.php' ) ) {

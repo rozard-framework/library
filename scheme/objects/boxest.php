@@ -295,7 +295,8 @@ if ( ! class_exists( 'rozard_scheme_object_boxs' ) ) {
                 $datums = $attachment[ $unique ];
     
                 if ( isset( $datums ) ){
-                    update_post_meta( $post['ID'], $unique, $datums );
+                    $values  =  $this->pure_field( $field['type'],  $datums ) ; 
+                    update_post_meta( $post['ID'], $unique, $values );
                 }
             }
 

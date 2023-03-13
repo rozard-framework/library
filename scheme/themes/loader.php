@@ -19,15 +19,13 @@ if ( ! class_exists( 'rozard_theme_loader' ) ) {
 
         
         public function __construct() {
-
            $this->hook();
-           
         }
 
 
         public function hook() {
-            add_action('after_setup_theme', array( $this, 'init' ) );
-            add_action( 'get_header',       array( $this, 'view' ) );
+            add_action( 'after_setup_theme', array( $this, 'init' ) );
+            add_action( 'get_header',        array( $this, 'view' ) );
         }
 
 
@@ -46,9 +44,8 @@ if ( ! class_exists( 'rozard_theme_loader' ) ) {
 
 
         public function data() {
+
             define( 'rozard_frontend', rozard . 'scheme/themes/layout/'  );
-
-
             $data = apply_filters( 'register_scheme', array() );
 
             if ( isset( $data['themes'] ) ) {
@@ -85,11 +82,6 @@ if ( ! class_exists( 'rozard_theme_loader' ) ) {
             add_theme_support( 'widgets-block-editor' );
         }
         
-
-    
-
-
-
 
     /**  MENUS */
 

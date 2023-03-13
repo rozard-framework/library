@@ -12,7 +12,7 @@ function theme_logo() {
 
 	if ( has_custom_logo() ) {
 
-		$resultat = sprintf( '<a class="brand flex-a" href="%s"><img class="logo" src="%s" alt="%s"></a>',
+		$resultat = sprintf( '<a class="brand flex" href="%s"><img class="logo" src="%s" alt="%s"></a>',
 						esc_url( home_url() ),
 						esc_url( $get_logo[0] ),
 						esc_attr( get_bloginfo( 'name' ) ),
@@ -152,14 +152,15 @@ function theme_brand_contact() {
 	$wa  = ( ! empty( $contact['wa'] ) ) ? $contact['wa'] : '';
 
 
-	$rtl  = ( ! empty( $tl ) ) ? '<div class="flex-a"><i class="dashicons dashicons-phone mr-2 my-3"></i><p class="item">'. esc_html( $tl ) .'</p></div>' : '';
-	$rml  = ( ! empty( $ml ) ) ? '<div class="flex-a"><i class="dashicons dashicons-email mr-2 my-3"></i><p class="item">'. esc_html( $ml ) .'</p></div>' : '';
-	$rfx  = ( ! empty( $fx ) ) ? '<div class="flex-a"><i class="dashicons dashicons-printer mr-2 my-3"></i><p class="item">'. esc_html( $fx ) .'</p></div>' : '';
-	$rwa  = ( ! empty( $wa ) ) ? '<div class="flex-a"><i class="dashicons dashicons-whatsapp mr-2 my-3"></i><p class="item">'. esc_html( $wa ) .'</p></div>' : '';
+
+	$rtl  = ( ! empty( $tl ) ) ? '<div class="flex-a"><i class="las la-phone mr-2 my-3"></i><p class="item">'. esc_html( $tl ) .'</p></div>' : '';
+	$rml  = ( ! empty( $ml ) ) ? '<div class="flex-a"><i class="las la-envelope mr-2 my-3"></i><p class="item">'. esc_html( $ml ) .'</p></div>' : '';
+	$rfx  = ( ! empty( $fx ) ) ? '<div class="flex-a"><i class="las la-fax mr-2 my-3"></i><p class="item">'. esc_html( $fx ) .'</p></div>' : '';
+	$rwa  = ( ! empty( $wa ) ) ? '<div class="flex-a"><i class="lab la-whatsapp mr-2 my-3"></i><p class="item">'. esc_html( $wa ) .'</p></div>' : '';
 
 
 
-	$render =  sprintf( '<div class="contact">
+	$render =  sprintf( '<div class="contact my-3">
 							<div class="item  flex-a">%s</div>
 							<div class="item  flex-a">%s</div>
 							<div class="item  flex-a">%s</div>
@@ -185,14 +186,14 @@ function theme_brand_social() {
 	$yt  = ( ! empty( $social['yt'] ) ) ? $social['yt'] : '';
 	$tw  = ( ! empty( $social['tw'] ) ) ? $social['tw'] : '';
 
-	$rfb  = ( ! empty( $fb ) ) ? '<li class="mr-3"><a href="'. esc_url($fb) .'"><i class="dashicons dashicons-facebook-alt"></i></a></li>' : '';
-	$rig  = ( ! empty( $ig ) ) ? '<li class="mr-3"><a href="'. esc_url($ig) .'"><i class="dashicons dashicons-instagram"></i></a></li>' : '';
-	$rlk  = ( ! empty( $lk ) ) ? '<li class="mr-3"><a href="'. esc_url($lk) .'"><i class="dashicons dashicons-linkedin"></i></a></li>' : '';
-	$ryt  = ( ! empty( $yt ) ) ? '<li class="mr-3"><a href="'. esc_url($yt) .'"><i class="dashicons dashicons-youtube"></i></a></li>' : '';
-	$rtw  = ( ! empty( $tw ) ) ? '<li class="mr-3"><a href="'. esc_url($tw) .'"><i class="dashicons dashicons-twitter"></i></a></li>' : '';
+	$rfb  = ( ! empty( $fb ) ) ? '<li class="mr-3"><a href="'. esc_url($fb) .'"><i class="lab la-facebook"></i></a></li>' : '';
+	$rig  = ( ! empty( $ig ) ) ? '<li class="mr-3"><a href="'. esc_url($ig) .'"><i class="lab la-instagram"></i></a></li>' : '';
+	$rlk  = ( ! empty( $lk ) ) ? '<li class="mr-3"><a href="'. esc_url($lk) .'"><i class="lab la-linkedin"></i></a></li>' : '';
+	$ryt  = ( ! empty( $yt ) ) ? '<li class="mr-3"><a href="'. esc_url($yt) .'"><i class="lab la-youtube"></i></a></li>' : '';
+	$rtw  = ( ! empty( $tw ) ) ? '<li class="mr-3"><a href="'. esc_url($tw) .'"><i class="lab la-twitter-square"></i></a></li>' : '';
 
 
-	$render = sprintf( '<ul class="social ls-none flex-a">
+	$render = sprintf( '<ul class="social ls-none flex-a my-3">
 						%s
 						%s
 						%s
@@ -288,6 +289,34 @@ function theme_termdata( $taxonomy_slug ) {
 	}
 
 	return $final;
+}
+
+
+function theme_search_default() {
+
+    $form = sprintf('<form class="search" method="get" action="%s">
+                            <div role="search" class="flex-a">
+                            <input class="search-input" type="search" name="s" aria-label="Search site for:" placeholder="%s">
+                            <button class="search-submit btn btn-primary" type="submit">%s</button>
+                            </div>
+                        </form>',
+                        esc_url( home_url() ),
+                        esc_html( 'To search, type and hit enter.', 'rozard_framework' ),
+                        esc_html( 'Search', 'rozard_framework'),
+                    );
+
+    $menu = sprintf( '<i class="las la-search open-nav" data-target="theme-default-search"></i>' );
+
+
+    $render = sprintf( '<div class="search">
+                            <div id="theme-default-search" class="mobile-open form hide xs sm">%s</div>
+                            <div class="action hide md lg xl xxl flex-a">%s</div>
+                        </div>',
+                        $form,
+                        $menu
+                    );
+
+    printf( $render );
 }
 
 

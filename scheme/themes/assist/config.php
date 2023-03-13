@@ -8,7 +8,6 @@ if ( ! class_exists( 'rozard_theme_config' ) ) {
     class rozard_theme_config{
 
 
-        // module
         use rozard_former_field;
 
 
@@ -18,11 +17,8 @@ if ( ! class_exists( 'rozard_theme_config' ) ) {
 
 
         private function data() {
-          
-
             $this->hook();
         }
-
 
 
         private function hook() {
@@ -31,14 +27,11 @@ if ( ! class_exists( 'rozard_theme_config' ) ) {
 
 
         public function init( $craft ) {
-           
-            // register basic model
+
             require_once 'model.php';
+            $schemes = apply_filters( 'register_scheme', array() );
+            $configs = $schemes['themes']['config'];
 
-            global $themes;
-            $configs = $themes['config'];
-
- 
             foreach( $configs as $panel ) {
 
                 if ( ! usr_can( $panel['caps'] ) ) {
@@ -68,8 +61,8 @@ if ( ! class_exists( 'rozard_theme_config' ) ) {
         
         private function form( $panel, $craft ) {
 
-            global $former;
-
+            $schemes = apply_filters( 'register_scheme', array() );
+            $former  = $schemes['former'];
 
             if ( ! isset( $former[$panel['form']] ) && empty( $former[$panel['form']] ) || ! is_array( $former[$panel['form']] ) ) {
                 return;
@@ -135,18 +128,33 @@ if ( ! class_exists( 'rozard_theme_config' ) ) {
                 'type'              => 'option',
                 'sanitize_callback' => $this->pure_calls( $type ),
             );
-
-
-            $control = array(
-                'label'      => __( $label , 'rozard_framework'),
-                'section'    => $secid ,
-                'settings'   => $data,
-                'type'       => $type,
-            );
-
-
             $craft->add_setting( $data , $setting );  
-            $craft->add_control( str_keys( $secid .'_'. $keys ), $control );
+
+
+            if (  $type !== 'upload' ) {
+
+                $control = array(
+                    'label'      => __( $label , 'rozard_framework'),
+                    'section'    => $secid ,
+                    'settings'   => $data,
+                    'type'       => $type,
+                );
+                   
+                $craft->add_control( str_keys( $secid .'_'. $keys ), $control );
+            }
+            else {
+
+                $control = array(
+                    'label'      => __( $label , 'rozard_framework'),
+                    'section'    => $secid ,
+                    'settings'   => $data,
+                    'type'       => $type,
+                );
+                   
+                $craft->add_control( 
+                    new WP_Customize_Upload_Control(  $craft, $secid .'_'. $keys, $control ) 
+                );
+            }
         } 
     }
     new rozard_theme_config;

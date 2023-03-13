@@ -182,9 +182,13 @@
 
     window.addEventListener( 'load', ()=> {
 
+        // aos init
+        AOS.init();
 
+        // tabs init
         new tabs( 'rozard-setting' );
 
         // app themes
         appthemes();
+        
     });

@@ -18,6 +18,7 @@ if ( ! class_exists( 'rozard_theme_footer' ) ) {
         private function base() {
 
             global $themes;
+            $class = $this->class();
 
 
             if ( isset( $themes['structure']['menu']['footer'] ) ) {
@@ -25,18 +26,27 @@ if ( ! class_exists( 'rozard_theme_footer' ) ) {
             }
 
            
-            printf('<div class="box">');
+            printf('<div class="box row">');
 
-                printf( '<div class="foot div-1">' );
-                    $this->col_1();
-                printf( '</div>' );
+
+
+                if ( isset( $themes['structure']['layout']['footer'] )  ) {
+
+                    if ( $themes['structure']['layout']['footer'] > 0 ) {
+
+                        printf( '<div class="foot div-1 %s">', $class );
+                            $this->col_1();
+                        printf( '</div>' );
+                    }
+                }
+               
 
 
                 if ( isset( $themes['structure']['layout']['footer'] )  ) {
 
                     if ( $themes['structure']['layout']['footer'] > 1 ) {
 
-                        printf( '<div class="foot div-2">' );
+                        printf( '<div class="foot div-2 %s">', $class );
                             $this->col_2();
                         printf( '</div>' );
                     }
@@ -47,7 +57,7 @@ if ( ! class_exists( 'rozard_theme_footer' ) ) {
 
                     if ( $themes['structure']['layout']['footer'] > 2) {
 
-                        printf( '<div class="foot div-3">' );
+                        printf( '<div class="foot div-3 %s">', $class );
                             $this->col_3();
                         printf( '</div>' );
                     }
@@ -57,15 +67,40 @@ if ( ! class_exists( 'rozard_theme_footer' ) ) {
                 if ( isset( $themes['structure']['layout']['footer'] )  ) {
 
                     if ( $themes['structure']['layout']['footer'] > 3) {
-                        printf( '<div class="foot div-4">' );
+                        printf( '<div class="foot div-4 %s">', $class );
                             $this->col_4();
                         printf( '</div>' );
                     }   
                 }
 
+
                
             printf('</div>');
 
+        }
+
+
+        private function class() {
+
+            global $themes;
+
+            if ( isset( $themes['structure']['layout']['footer'] )  ) {
+
+                if ( $themes['structure']['layout']['footer'] === 2 ) {
+
+                    $class = 'col-12-xs col-6-lg';
+                }
+                else if ( $themes['structure']['layout']['footer'] === 3 ) {
+
+                    $class = 'col-12-xs col-4-lg';
+                }
+                else if ( $themes['structure']['layout']['footer'] === 4 ) {
+
+                    $class = 'col-12-xs col-3-lg';
+                }
+            }
+
+            return $class;
         }
 
 

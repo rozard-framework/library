@@ -11,6 +11,7 @@ if ( ! class_exists( 'rozard_scheme_admins' ) ) {
 
 
         private $node = array( 
+            
             'cockpit' =>  array( 
                             'index.php', 
                             'my-sites', 
@@ -27,8 +28,10 @@ if ( ! class_exists( 'rozard_scheme_admins' ) ) {
             'manages' =>  array( 
                             'users.php', 
                             'user-new.php', 
+                            'user-edit.php', 
                             'profile.php?wp_http_referer=', 
                             'themes.php', 
+                            'nav-menus.php',
                             'plugins.php', 
                             'tools.php', 
                             'import.php', 
@@ -128,7 +131,7 @@ if ( ! class_exists( 'rozard_scheme_admins' ) ) {
             }
 
 
-            if ( uris_has( $this->node['formats'] ) && ! is_network_admin() ) {
+            if ( uris_has( $this->node['formats'] ) && ! is_network_admin() && ! uri_has( 'user-edit.php' ) ) {
 
                 require_once 'service/formats.php';
                 new rozard_service_formats;
@@ -144,27 +147,27 @@ if ( ! class_exists( 'rozard_scheme_admins' ) ) {
             }
 
 
-             if ( uris_has( $this->core['insight'] ) ) {
+             if ( uris_has( $this->core['insight'] ) && ! uri_has( 'user-edit.php' ) ) {
                 require_once 'system/insights.php';
                 new rozard_system_insight;
             }
 
             
-            if ( uris_has( $this->core['service'] ) ) {
+            if ( uris_has( $this->core['service'] ) && ! uri_has( 'user-edit.php' ) ) {
 
                 require_once 'system/service.php';
                 new rozard_system_service();
             }
 
             
-            if ( uris_has( $this->core['manages'] ) && ! uri_has( 'site-' ) ) {
+            if ( uris_has( $this->core['manages'] ) && ! uri_has( 'site-' )  ) {
 
                 require_once 'system/manage.php';
                 new rozard_system_manage;
             }
 
 
-            if ( uris_has( $this->core['setting'] ) && ! uri_has( 'site-' ) )  {
+            if ( uris_has( $this->core['setting'] ) && ! uri_has( 'site-' ) &&  ! uri_has( 'user-edit.php' ))  {
 
                 require_once 'system/settings.php';
                 new rozard_system_setting;
@@ -199,12 +202,19 @@ if ( ! class_exists( 'rozard_scheme_admins' ) ) {
                 return $order;
             }
            
+
             global $menu, $submenu, $pagenow;
 
 
-            // redirect
+            // dashboard
             if ( $pagenow === 'index.php' && ! uri_has( 'node=' ) ) {
                 wp_safe_redirect( admin_url( 'index.php?node=dashboard' ) );
+            }
+
+
+            // mysites
+            if ( $pagenow === 'my-sites.php' && ! uri_has( 'node=' ) ) {
+                wp_safe_redirect( admin_url( 'my-sites.php?node=workspace' ) );
             }
 
 
@@ -263,9 +273,19 @@ if ( ! class_exists( 'rozard_scheme_admins' ) ) {
             global $menu, $submenu, $pagenow;
 
 
-            // redirect 
+            // cockpit routes 
             if ( $pagenow === 'index.php' && ! uri_has( 'node=' ) ) {
                 wp_safe_redirect( network_admin_url( 'index.php?node=general' ) );
+            }
+
+            // themes routes
+            if ( $pagenow === 'themes.php' && ! uri_has( 'node=' ) && ! uri_has( 's=' )) {
+                wp_safe_redirect( network_admin_url( 'themes.php?theme_status=search&node=themes' ) );
+            }
+
+            if ( $pagenow === 'themes.php' && ! uri_has( 'node=' ) && uri_has( 's=' )) {
+                $search = sanitize_text_field( $_REQUEST['s']  );
+                wp_safe_redirect( network_admin_url( 'themes.php?s='. $search .'&node=themes' ) );
             }
     
 

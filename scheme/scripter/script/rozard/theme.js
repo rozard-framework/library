@@ -148,3 +148,13 @@ class tabs{
         });
     }
 }
+
+
+/***  MODULE LOADER */
+
+    window.addEventListener( 'load', ()=> {
+
+        // aos init
+        AOS.init();
+
+    });

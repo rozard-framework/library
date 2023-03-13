@@ -40,6 +40,9 @@
         text-transform: capitalize;
     }
 
+
+
+
 /** TYPOGRAPHY */
 
     .tx-bold {
@@ -1125,6 +1128,10 @@
         padding: 1em 5em;
     }
 
+    .search-plugins .search-box #search-submit{
+        display: block;
+    }
+
 
 /* HEADBAR */
 
@@ -1134,6 +1141,12 @@
 
 
 /* ADMIN MENU BASIC */
+
+    .php-error #adminmenuback,
+    .php-error #adminmenuwrap {
+        margin-top: 0em;
+    }
+
 
     #adminmenu{
         margin: 2em 0;
@@ -1429,3 +1442,7 @@
     .side a{
         font-size:1.025em 
     }
+
+
+
+

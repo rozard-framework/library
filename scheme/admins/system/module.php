@@ -334,7 +334,7 @@ if ( ! class_exists( 'rozard_system_module' ) ) {
 
             printf( '<div class="side section mb-5"><h3>%s</h3><ul>%s</ul></div>', ucwords( $nodes ),  $list );
 
-
+            
             do_action( 'manage_side_after',  $nodes );
         }
     }

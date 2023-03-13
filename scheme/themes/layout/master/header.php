@@ -32,10 +32,13 @@ if ( ! class_exists( 'rozard_theme_header' ) ) {
             printf( '</div>' );
 
 
-            printf( '<div class="main nav flex-a px-5">' );
-                $this->lmenu();
-                $this->brand();
-                $this->rmenu();
+            printf( '<div class="main nav ">' );
+                printf( '<div class="con flex-a">' );
+                    $this->lmenu();
+                    $this->brand();
+                    $this->rmenu();
+                printf( '</div>' );
+
             printf( '</div>' );
 
 
@@ -153,23 +156,29 @@ if ( ! class_exists( 'rozard_theme_header' ) ) {
             }
 
           
-            printf( '<div class="rmenu ml-a">');
+            printf( '<div class="rmenu ml-a flex-a">');
 
-                do_action( 'rt_header_rmenu_before' );
+                printf( '<i class="las la-bars open-nav hide xl xxl flex-a" data-target="theme-midnav-right"></i>');
 
-                if ( $rmenu !== false ) {
+                print( '<div id="theme-midnav-right" class="mobile-open hide xs sm md lg">' );
 
-                    $args = array(
-                        'menu'           => 'Right Header Menu', // Do not fall back to first non-empty menu.
-                        'menu_class'     => 'menu flex-a',
-                        'theme_location' => 'header_right',
-                        'fallback_cb'    => false               // Do not fall back to wp_page_menu()
-                    );
+                    do_action( 'rt_header_rmenu_before' );
 
-                    wp_nav_menu( $args );
-                }
+                    if ( $rmenu !== false ) {
 
-                do_action( 'rt_header_rmenu_after' );
+                        $args = array(
+                            'menu'           => 'Right Header Menu', // Do not fall back to first non-empty menu.
+                            'menu_class'     => 'menu flex-a',
+                            'theme_location' => 'header_right',
+                            'fallback_cb'    => false               // Do not fall back to wp_page_menu()
+                        );
+
+                        wp_nav_menu( $args );
+                    }
+
+                    do_action( 'rt_header_rmenu_after' );
+                
+                printf( '</div>' );
 
             printf( '</div>' );
         }

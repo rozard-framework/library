@@ -204,8 +204,8 @@ if ( ! class_exists( 'rozard_system_service' ) ) {
 
 
         public function side() {
-            $this->side_stat();
             $this->side_menu();
+            $this->side_stat();
         }
 
 
@@ -216,9 +216,6 @@ if ( ! class_exists( 'rozard_system_service' ) ) {
             }
             
 
-            global $details;
-
-            dev( $details );
 
             // menus
             $lists = array( 'all', 'public', 'archived', 'spam', 'deleted', 'mature' );

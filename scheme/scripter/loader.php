@@ -20,8 +20,14 @@ if ( ! class_exists( 'rozard_scheme_scripts' ) ) {
         private function init() {
 
             if ( is_multisite() ) {
+                
                 define( 'vendor_css', get_site_url( get_main_site_id() ) . '/wp-admin/library/scheme/scripter/styles/' );
                 define( 'vendor_jsx', get_site_url( get_main_site_id() ) . '/wp-admin/library/scheme/scripter/script/' );
+            }
+            else {
+
+                define( 'vendor_css', get_site_url() . '/wp-admin/library/scheme/scripter/styles/' );
+                define( 'vendor_jsx', get_site_url() . '/wp-admin/library/scheme/scripter/script/' );
             }
             
             $this->based();
@@ -39,41 +45,102 @@ if ( ! class_exists( 'rozard_scheme_scripts' ) ) {
 
         public function based_css() {
 
+
+            // FRONT
             $this->raws['front']['head']['css'][] = array(
-                    'name'  => 'theme-css',
-                    'file'  => vendor_css . 'rozard/theme.css',
-                    'deps'  => array(),
-                    'vers' => rozard_version,
-                    'args'   => 'all',
-                );
+                'name'  => 'theme-css',
+                'file'  => vendor_css . 'rozard/theme.css',
+                'deps'  => array(),
+                'vers' => rozard_version,
+                'args'   => 'all',
+            );
+
+
+            $this->raws['front']['head']['css'][] = array(
+                'name'  =>  'aos-css',
+                'file'  =>  vendor_css . 'aos/aos.min.css',
+                'deps'  =>  array(),
+                'vers'  =>  2,
+                'args'  =>  'all',
+            );
+
+
+            $this->raws['front']['head']['css'][] = array(
+                'name'  => 'icons-css',
+                'file'  => vendor_css . 'line-awsome/css/line-awesome.min.css',
+                'deps'  => array(),
+                'vers' => rozard_version,
+                'args'   => 'all',
+            );
+
+
+
+
+            // BACK
+            $this->raws['back']['head']['css'][] = array(
+                'name'  =>  'aos-css',
+                'file'  =>  vendor_css . 'aos/aos.min.css',
+                'deps'  =>  array(),
+                'vers'  =>  2,
+                'args'  =>  'all',
+            );
+          
 
             $this->raws['back']['head']['css'][] = array(
-                    'name'  =>  'admin-css',
-                    'file'  =>  vendor_css . 'rozard/admin.css',
-                    'deps'  =>  array(),
-                    'vers'  =>  rozard_version,
-                    'args'  => 'all',
-                );
+                'name'  => 'icons-css',
+                'file'  => vendor_css . 'line-awsome/css/line-awesome.min.css',
+                'deps'  => array(),
+                'vers' => rozard_version,
+                'args'   => 'all',
+            );
+
+
+            $this->raws['back']['head']['css'][] = array(
+                'name'  =>  'admin-css',
+                'file'  =>  vendor_css . 'rozard/admin.css',
+                'deps'  =>  array(),
+                'vers'  =>  rozard_version,
+                'args'  => 'all',
+            );
         }
 
 
         public function based_jsx() {
             
+            // FRONT
             $this->raws['front']['head']['jsx'][] = array(
-                    'name'  =>  'theme-jsx',
-                    'file'  =>  vendor_jsx . 'rozard/theme.js',
-                    'deps'  =>  array(),
-                    'vers'  =>  rozard_version,
-                    'args'  =>  true,
-                );
+                'name'  =>  'aos-jsx',
+                'file'  =>  vendor_jsx . 'aos/aos.js',
+                'deps'  =>  array(),
+                'vers'  =>  2,
+                'args'  =>  true,
+            );
+
+            $this->raws['front']['head']['jsx'][] = array(
+                'name'  =>  'theme-jsx',
+                'file'  =>  vendor_jsx . 'rozard/theme.js',
+                'deps'  =>  array(),
+                'vers'  =>  rozard_version,
+                'args'  =>  true,
+            );
+
+
+            // BACK
+            $this->raws['back']['head']['jsx'][] = array(
+                'name'  =>  'aos-jsx',
+                'file'  =>  vendor_jsx . 'aos/aos.js',
+                'deps'  =>  array(),
+                'vers'  =>  2,
+                'args'  =>  false,
+            );
 
             $this->raws['back']['head']['jsx'][] = array(
-                    'name'  =>  'admin-jsx',
-                    'file'  =>  vendor_jsx . 'rozard/admin.js',
-                    'deps'  =>  array(),
-                    'vers'  =>  rozard_version,
-                    'args'  =>  true,
-                );
+                'name'  =>  'admin-jsx',
+                'file'  =>  vendor_jsx . 'rozard/admin.js',
+                'deps'  =>  array( 'aos-jsx' ),
+                'vers'  =>  rozard_version,
+                'args'  =>  true,
+            );
         }
 
 
@@ -237,6 +304,7 @@ if ( ! class_exists( 'rozard_scheme_scripts' ) ) {
 
         public function admin_mods( $tag, $handle, $src ) {
 
+            
             if ( 'admin-jsx' === $handle ) {
                 $tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
             }
