@@ -6,10 +6,6 @@ if ( ! defined('ABPSATH') || ! defined( 'rozard' ) ){ exit; }
 if ( ! class_exists('rozard_kernel_probe_layouts') ) {
 
     class rozard_kernel_probe_layouts {
-      
-        private string $logo;
-        private string $stat;
-        private string $vend;
 
         
         public function __construct() {
