@@ -244,7 +244,7 @@ if ( ! trait_exists( 'rozard_former_field' ) ) {
             foreach( $group as $field ) {
 
                 $render .= sprintf( '<tr class="row" style="width:%s;float:left;">',
-                                esc_attr( $field['width'] . '%'),
+                                esc_attr( $field['width'] ),
                             );
 
                 $render .= sprintf( '<th><label for="%s"> %s </label></th>', 
